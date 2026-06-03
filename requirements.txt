@@ -1,0 +1,5 @@
+# Dependencias do Monitor de Ruptura — Lojas Giovanna
+# Estagio 1: ingestao via API
+# Estagio 2: processamento com pandas
+requests>=2.31.0
+pandas>=2.0.0
