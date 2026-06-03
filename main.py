@@ -62,7 +62,9 @@ def fetch_data() -> list[dict]:
     response.raise_for_status()
 
     data = response.json()
-    print(f"[fetch_data] {len(data)} registros obtidos com sucesso.")
+    if not data:
+        print("[fetch_data] AVISO: API retornou lista vazia.")
+    print(f"[fetch_data] {len(data)} registros obtenidos com sucesso.")
     return data
 
 
@@ -97,6 +99,10 @@ def build_demand_forecast(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         DataFrame com colunas: regiao, estoque_atual, demanda_prevista
     """
+    if df.empty:
+        print("[build_demand_forecast] AVISO: DataFrame vazio — pulando transformacao.")
+        return pd.DataFrame(columns=["regiao", "estoque_atual", "demanda_prevista"])
+
     # Renomeia store_location para regiao
     df["regiao"] = df["store_location"]
 
@@ -140,6 +146,10 @@ def compute_rupture(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         DataFrame com resumo por regiao: regiao, ruptura_mean, ruptura_max.
     """
+    if df.empty:
+        print("[compute_rupture] AVISO: DataFrame vazio — retornando resultado vazio.")
+        return pd.DataFrame(columns=["regiao", "ruptura_mean", "ruptura_max"])
+
     # Calcula ruptura por registro
     df["ruptura"] = (df["demanda_prevista"] - df["estoque_atual"]) / df["demanda_prevista"]
 
@@ -148,6 +158,10 @@ def compute_rupture(df: pd.DataFrame) -> pd.DataFrame:
 
     n_records = len(df_valid)
     print(f"[compute_rupture] Registros com demanda valida: {n_records}")
+
+    if n_records == 0:
+        print("[compute_rupture] AVISO: Nenhum registro com demanda > 0 — sem dados para agregar.")
+        return pd.DataFrame(columns=["regiao", "ruptura_mean", "ruptura_max"])
 
     # Agrega por regiao
     summary = (
@@ -177,6 +191,11 @@ def print_summary(summary: pd.DataFrame) -> None:
     print("  TOP 3 REGIOES COM MAIOR RUPTURA MEDIA")
     print("=" * 60)
 
+    if summary.empty:
+        print("  Nenhuma regiao para exibir — dados ausentes ou vazios.")
+        print("  Verifique se a API retornou registros validos.")
+        return
+
     top3 = summary.sort_values("ruptura_mean", ascending=False).head(3)
 
     for i, (_, row) in enumerate(top3.iterrows(), 1):
@@ -186,15 +205,23 @@ def print_summary(summary: pd.DataFrame) -> None:
         print()
 
     # Estatisticas gerais
+    mean_val = summary["ruptura_mean"].mean()
+    mean_str = f"{mean_val:.2%}" if not pd.isna(mean_val) else "N/A"
     print(f"  Total de regioes analisadas: {len(summary)}")
-    print(f"  Media geral de ruptura:     {summary['ruptura_mean'].mean():.2%}")
-    print(f"  Pior regiao:                {top3.iloc[0]['regiao']} "
-          f"({top3.iloc[0]['ruptura_mean']:.2%})")
+    print(f"  Media geral de ruptura:     {mean_str}")
+
+    # Pior regiao — so acessa se existir
+    if not top3.empty:
+        first = top3.iloc[0]
+        print(f"  Pior regiao:                {first['regiao']} "
+              f"({first['ruptura_mean']:.2%})")
 
 
 def save_report(summary: pd.DataFrame, filepath: str) -> None:
     """Salva o resumo de ruptura por regiao em CSV."""
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    if summary.empty:
+        print(f"[save_report] AVISO: DataFrame vazio — salvando CSV com apenas cabecalho.")
     summary.to_csv(filepath, index=False, encoding="utf-8")
     print(f"[save_report] Relatorio salvo em: {filepath} ({len(summary)} regioes)")
 
@@ -211,6 +238,9 @@ def load_local_json(filepath: str) -> list[dict]:
         sys.exit(1)
     with open(filepath, "r", encoding="utf-8") as f:
         data = json.load(f)
+    if not data or (isinstance(data, list) and len(data) == 0):
+        print(f"ERRO: Arquivo {filepath} esta vazio.")
+        sys.exit(1)
     print(f"[load_local_json] Carregados {len(data)} registros de {filepath}")
     return data
 
@@ -246,6 +276,10 @@ def main():
         print("[modo API] Baixando da API DataMission...")
         raw_data = fetch_data()
         save_raw_json(raw_data, json_path)
+
+    if not raw_data:
+        print("\n[ERRO] Nenhum registro retornado pela API. Verifique o token e o project_id.")
+        sys.exit(1)
 
     # --- Estagio 2: Processamento ---
     print("\n--- Estagio 2: Processar dados e calcular ruptura ---")
