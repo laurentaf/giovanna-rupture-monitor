@@ -127,24 +127,24 @@ em qualquer ambiente com Python.
 
 ## 📊 Resultados Reais
 
-Pipeline executado com dados reais da API DataMission (1.000 registros, 562 regiões):
+Pipeline executado com **20.000 registros** da API DataMission — 2 chamadas de 10.000 linhas cada:
 
 ### 🥇 Top 3 Regiões com Maior Ruptura Média
 
 | # | Região | Ruptura Média | Ruptura Máxima |
 |---|--------|:--------------:|:--------------:|
-| 1 | **Siqueira de Brito** | 🔴 33,33% | 66,67% |
-| 2 | **Teixeira de Cunha** | 🔴 33,33% | 66,67% |
-| 3 | **Vieira** | 🔴 33,33% | 66,67% |
+| 1 | **Abreu de Gomes** | 🔴 33,33% | 66,67% |
+| 2 | **Abreu de Pimenta** | 🔴 33,33% | 66,67% |
+| 3 | **Martins de da Rocha** | 🔴 33,33% | 66,67% |
 
 ### 📈 Estatísticas Globais
 
 | Métrica | Valor |
 |---------|:-----:|
-| Total de regiões analisadas | **562** |
-| Média geral de ruptura | **4,57%** |
-| Pior região | Siqueira de Brito (33,33%) |
-| Registros ingeridos | 1.000 |
+| Total de regiões analisadas | **4.150** |
+| Média geral de ruptura | **5,37%** |
+| Pior região | Abreu de Gomes (33,33%) |
+| Registros ingeridos | 20.000 |
 
 ### 📁 Artefatos Gerados
 
@@ -217,6 +217,9 @@ export API_TOKEN="seu-token-aqui"     # Linux/macOS
 
 # 5. Execute o pipeline completo
 python main.py
+
+# (opcional) Para processar dados já baixados sem chamar a API de novo:
+python main.py --local
 ```
 
 ### Saída esperada
@@ -226,31 +229,35 @@ python main.py
   Monitor de Ruptura por Regiao — Lojas Giovanna
 ============================================================
 
---- Estagio 1: Obter dados da API ---
-[fetch_data] 1000 registros obtidos com sucesso.
-[save_raw_json] JSON salvo em: data/raw_data.json (1000 registros)
+--- Estagio 1: Obter dados ---
+[modo API] Baixando da API DataMission...
+[fetch_data] 10000 registros obtidos com sucesso.
+[save_raw_json] JSON salvo em: data/raw_data.json (10000 registros)
 
 --- Estagio 2: Processar dados e calcular ruptura ---
-[build_demand_forecast] estoque_atual: min=1, max=825, media=277.0
-[compute_rupture] Registros com demanda valida: 1000
-[compute_rupture] Regioes unicas: 562
+[build_demand_forecast] estoque_atual: min=1, max=5, media=3.0
+[compute_rupture] Registros com demanda valida: 10000
+[compute_rupture] Regioes unicas: 2117
 
 --- Estagio 3: Relatorios e validacoes ---
 
 ============================================================
   TOP 3 REGIOES COM MAIOR RUPTURA MEDIA
 ============================================================
-  1. Siqueira de Brito
+  1. Abreu de Gomes
      Ruptura media: 33,33%
      Ruptura max:   66,67%
 
-  Total de regioes analisadas: 562
-  Media geral de ruptura:     4,57%
+  Total de regioes analisadas: 2117
+  Media geral de ruptura:     5,30%
 
 [OK] Pipeline completo (3 estagios)!
-   JSON bruto:     data/raw_data.json
-   Relatorio CSV:  data/rupture_report.csv
+   JSON bruto:     data/raw_data.json (10000 registros)
+   Relatorio CSV:  data/rupture_report.csv (2117 regioes)
 ```
+
+> 💡 **Para datasets maiores:** Faça múltiplas chamadas `rows=10000` e mescle os JSONs.
+> Depois use `python main.py --local` para processar sem baixar novamente.
 
 ---
 

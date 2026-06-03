@@ -18,15 +18,13 @@ import pandas as pd
 import json
 import os
 import sys
+import argparse
 from datetime import datetime
 
 # ─── Configuracoes ──────────────────────────────────────────────────────────
 
 PROJECT_ID = "93fa0f19-ae51-4ed9-986b-47457ac2f26a"
 API_TOKEN = os.environ.get("API_TOKEN")
-if not API_TOKEN:
-    print("ERRO: Variavel de ambiente API_TOKEN nao definida.")
-    sys.exit(1)
 
 BASE_URL = "https://api.datamission.com.br/projects"
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
@@ -41,7 +39,10 @@ def fetch_data() -> list[dict]:
     Consome a API de datasets da DataMission.
 
     Endpoint:
-        GET https://api.datamission.com.br/projects/{project_id}/dataset?format=json
+        GET https://api.datamission.com.br/projects/{project_id}/dataset?format=json&rows=10000
+
+    Cada chamada retorna ate 10.000 registros unicos.
+    Para datasets maiores, execute multiplas vezes e mescle os JSONs.
 
     Returns:
         list[dict]: Lista de registros de pedidos/inventario.
@@ -49,7 +50,11 @@ def fetch_data() -> list[dict]:
     Raises:
         requests.exceptions.RequestException: Se a requisicao falhar.
     """
-    url = f"{BASE_URL}/{PROJECT_ID}/dataset?format=json"
+    if not API_TOKEN:
+        print("ERRO: Variavel de ambiente API_TOKEN nao definida.")
+        sys.exit(1)
+
+    url = f"{BASE_URL}/{PROJECT_ID}/dataset?format=json&rows=10000"
     headers = {"Authorization": f"Bearer {API_TOKEN}"}
 
     print(f"[fetch_data] Chamando API: {url}")
@@ -198,6 +203,18 @@ def save_report(summary: pd.DataFrame, filepath: str) -> None:
 # Pipeline principal
 # =============================================================================
 
+def load_local_json(filepath: str) -> list[dict]:
+    """Carrega dados de um arquivo JSON local."""
+    if not os.path.exists(filepath):
+        print(f"ERRO: Arquivo {filepath} nao encontrado.")
+        print("Dica: execute primeiro sem --local para baixar da API.")
+        sys.exit(1)
+    with open(filepath, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    print(f"[load_local_json] Carregados {len(data)} registros de {filepath}")
+    return data
+
+
 def main():
     """
     Executa os 3 estagios do pipeline em sequencia:
@@ -205,15 +222,30 @@ def main():
       2. Processa dados, calcula ruptura, gera resumo por regiao
       3. Exibe top 3 regioes e salva relatorio CSV
     """
+    parser = argparse.ArgumentParser(
+        description="Monitor de Ruptura por Regiao — Lojas Giovanna"
+    )
+    parser.add_argument(
+        "--local", "-l", action="store_true",
+        help="Usa dados locais (data/raw_data.json) em vez de chamar a API"
+    )
+    args = parser.parse_args()
+
     print("=" * 60)
     print("  Monitor de Ruptura por Regiao — Lojas Giovanna")
     print("=" * 60)
 
-    # --- Estagio 1: Ingestao ---
-    print("\n--- Estagio 1: Obter dados da API ---")
-    raw_data = fetch_data()
     json_path = os.path.join(DATA_DIR, "raw_data.json")
-    save_raw_json(raw_data, json_path)
+
+    # --- Estagio 1: Ingestao ---
+    print("\n--- Estagio 1: Obter dados ---")
+    if args.local:
+        print("[modo local] Carregando dados existentes...")
+        raw_data = load_local_json(json_path)
+    else:
+        print("[modo API] Baixando da API DataMission...")
+        raw_data = fetch_data()
+        save_raw_json(raw_data, json_path)
 
     # --- Estagio 2: Processamento ---
     print("\n--- Estagio 2: Processar dados e calcular ruptura ---")
@@ -228,8 +260,9 @@ def main():
     save_report(summary, report_path)
 
     print("\n[OK] Pipeline completo (3 estagios)!")
-    print(f"   JSON bruto:     {json_path}")
-    print(f"   Relatorio CSV:  {report_path}")
+    print(f"   Modo:       {'local' if args.local else 'API'}")
+    print(f"   JSON bruto: {json_path} ({len(raw_data)} registros)")
+    print(f"   Relatorio:  {report_path} ({len(summary)} regioes)")
 
 
 if __name__ == "__main__":
