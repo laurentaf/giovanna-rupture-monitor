@@ -21,8 +21,8 @@ Pipeline em 3 estágios:
 2. **Processamento**:
    - Deriva "região" de store_location
    - Deriva "estoque_atual" de quantity (cada pedido representa unidades)
-   - Gera "demanda_prevista" com variação determinística (hash do order_id)
-     para simular uma projeção de demanda realista
+   - Gera "demanda_prevista" com variação determinística (SHA256 do order_id)
+     para simular uma projeção de demanda realista e **reprodutível entre execuções**
    - Calcula ruptura = (demanda - estoque) / demanda
    - Agrega por região com mean e max
 3. **Relatório**: print_summary() + CSV final

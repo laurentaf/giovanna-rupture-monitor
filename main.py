@@ -19,6 +19,7 @@ import json
 import os
 import sys
 import argparse
+import hashlib
 from datetime import datetime
 
 # ─── Configuracoes ──────────────────────────────────────────────────────────
@@ -114,9 +115,11 @@ def build_demand_forecast(df: pd.DataFrame) -> pd.DataFrame:
     # deterministico (derivado do order_id) para simular previsao de demanda
     def _forecast(row):
         qty = row["quantity"]
-        # Hash simples do order_id para gerar um fator deterministico entre -0.3 e +0.3
-        seed_val = abs(hash(row["order_id"])) % 1000
-        factor = (seed_val / 1000.0) * 0.6 - 0.2  # entre -0.2 e +0.4
+        # Hash SHA256 deterministico do order_id (PYTHONHASHSEED nao afeta)
+        h = hashlib.sha256(str(row["order_id"]).encode()).hexdigest()
+        # Pega os primeiros 8 hex chars como int normalizado entre 0 e 1
+        seed_val = int(h[:8], 16) / 0xFFFFFFFF  # 0.0 a 1.0
+        factor = seed_val * 0.6 - 0.2  # entre -0.2 e +0.4
         forecast = max(1, round(qty * (1 + factor)))
         return forecast
 
