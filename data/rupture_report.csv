@@ -1,568 +1,563 @@
 regiao,ruptura_mean,ruptura_max
-Abreu,0.0333,0.2
-Abreu Alegre,0.0,0.0
+Abreu,0.0667,0.3333
 Abreu Grande,0.0,0.0
-Abreu das Pedras,0.0,0.0
-Abreu de Almeida,-0.3333,-0.3333
-Abreu de Cassiano,-0.3333,-0.3333
-Abreu de da Mota,0.2,0.2
-Albuquerque,0.1148,0.3333
-Albuquerque Verde,-0.5,-0.5
-Albuquerque de Goiás,0.3333,0.3333
-Albuquerque de Peixoto,0.2,0.2
-Albuquerque de Silva,0.0,0.0
-Albuquerque de Siqueira,0.0,0.0
-Albuquerque do Norte,0.0,0.0
-Albuquerque do Oeste,0.0,0.0
-Albuquerque do Sul,0.3333,0.3333
-Albuquerque dos Dourados,0.0,0.0
-Almeida,0.0667,0.2
-Almeida Verde,0.0,0.0
-Almeida de Costela,0.0,0.0
-Almeida de Melo,0.1667,0.1667
-Almeida do Campo,0.0,0.0
-Alves,0.1071,0.3333
-Alves Alegre,0.25,0.25
-Alves de Souza,0.0,0.0
-Alves de da Luz,-0.25,-0.25
-Alves do Norte,0.0,0.0
-Andrade,0.1458,0.3333
-Andrade Verde,0.2,0.2
-Andrade da Mata,0.0,0.0
-Andrade da Praia,0.0,0.0
-Andrade das Flores,0.0,0.0
-Andrade de Guerra,0.0,0.0
-Andrade de Minas,0.0,0.0
-Andrade do Campo,0.0,0.0
-Andrade do Oeste,-0.25,-0.25
-Aparecida,0.1952,0.3333
-Aparecida Paulista,0.0,0.0
-Aparecida da Mata,0.2667,0.3333
-Aparecida de Camargo,0.0,0.0
-Aparecida de Minas,0.0,0.0
-Aparecida de Pacheco,0.2857,0.2857
-Aragão,-0.0833,0.0
-Aragão Paulista,-0.25,-0.25
-Aragão de Abreu,-0.5,-0.5
-Aragão de Almeida,0.25,0.25
-Aragão de Guerra,-0.25,-0.25
-Aragão de Rezende,0.0,0.0
-Aragão do Amparo,0.0,0.0
-Aragão do Campo,0.0,0.0
-Aragão do Norte,0.2429,0.2857
-Araújo,0.0725,0.2857
-Araújo Grande,0.0,0.0
-Araújo da Praia,0.3333,0.3333
-Araújo das Pedras,0.0,0.0
-Araújo de Pimenta,0.0,0.0
-Azevedo,0.0417,0.25
-Azevedo Paulista,0.0,0.0
-Azevedo de Campos,0.0,0.0
+Abreu de Barros,0.25,0.25
+Abreu de Goiás,0.125,0.25
+Abreu de Minas,0.25,0.25
+Abreu dos Dourados,0.0,0.0
+Albuquerque,0.0286,0.3333
+Albuquerque de Pimenta,0.1667,0.1667
+Almeida,-0.0833,0.0
+Almeida de Costela,0.1667,0.1667
+Almeida de Minas,0.25,0.25
+Almeida do Galho,0.0,0.0
+Alves,0.0,0.0
+Alves Alegre,0.1,0.2
+Alves da Prata,0.0,0.0
+Alves do Campo,-0.25,-0.25
+Alves dos Dourados,0.0,0.0
+Andrade,-0.0333,0.3333
+Andrade da Prata,0.0,0.0
+Andrade das Pedras,0.2857,0.2857
+Andrade de Cavalcanti,0.0,0.0
+Andrade de Montenegro,0.0,0.0
+Andrade de Pereira,0.0,0.0
+Andrade de Souza,0.0,0.0
+Andrade de da Rocha,0.0,0.0
+Andrade dos Dourados,0.2667,0.3333
+Aparecida,0.0,0.0
+Aparecida da Mata,0.0,0.0
+Aparecida da Praia,0.0,0.0
+Aparecida de Santos,0.2857,0.2857
+Aparecida de Sá,0.25,0.25
+Aragão,0.0278,0.25
+Aragão Verde,0.0,0.0
+Aragão da Prata,0.2,0.2
+Aragão do Oeste,0.2857,0.2857
+Araújo,0.0286,0.2
+Araújo Verde,0.0,0.0
+Araújo da Prata,0.1667,0.1667
+Araújo de Costela,0.0,0.0
+Azevedo,0.0472,0.3333
+Azevedo Grande,0.0,0.0
+Azevedo da Praia,0.0,0.0
+Azevedo de Mendes,0.0,0.0
 Azevedo de Minas,0.0,0.0
-Barbosa,0.0476,0.3333
-Barbosa Grande,0.2,0.2
-Barbosa da Mata,0.1,0.2
-Barbosa de Goiás,0.0,0.0
-Barbosa de Macedo,0.0,0.0
-Barbosa de Sampaio,0.25,0.25
-Barbosa do Oeste,0.0,0.0
-Barbosa do Sul,0.0,0.0
-Barros,0.0833,0.1667
-Barros da Praia,0.2857,0.2857
-Barros de Costa,0.1667,0.1667
-Barros de Nascimento,-0.25,-0.25
-Barros de Oliveira,0.1667,0.1667
-Barros do Norte,0.25,0.25
+Azevedo de da Mata,0.0,0.0
+Azevedo do Campo,0.0,0.0
+Azevedo do Oeste,0.1667,0.1667
+Barbosa,0.04,0.2
+Barbosa de Minas,0.0,0.0
+Barbosa de Moraes,0.25,0.25
+Barbosa do Norte,0.25,0.25
+Barros,0.0833,0.3333
+Barros de Cardoso,0.0,0.0
+Barros de da Rosa,0.0,0.0
+Barros do Sul,0.25,0.25
 Borges,0.0,0.0
-Borges de Cassiano,0.25,0.25
-Borges de Moraes,0.1667,0.1667
-Borges do Galho,0.25,0.25
-Borges do Oeste,0.0,0.0
-Brito,0.0,0.0
-Brito Grande,0.0,0.0
-Brito de Campos,0.2,0.2
-Caldeira,0.0,0.25
-Caldeira de Costa,0.0,0.0
-Caldeira de Ferreira,0.2857,0.2857
-Caldeira de da Paz,0.3333,0.3333
-Caldeira de da Rocha,-0.5,-0.5
-Caldeira do Amparo,0.0,0.0
-Caldeira do Campo,0.25,0.25
-Caldeira do Oeste,0.0,0.0
-Caldeira dos Dourados,0.2857,0.2857
-Camargo,0.15,0.25
-Camargo Grande,0.0,0.0
-Camargo da Serra,0.2,0.2
-Camargo do Galho,0.2,0.2
-Camargo do Sul,0.0,0.0
-Campos,0.0,0.0
-Campos Grande,0.3333,0.3333
-Campos da Mata,0.0,0.0
-Campos da Serra,0.2857,0.2857
-Campos das Pedras,0.0,0.0
-Campos de Minas,0.0,0.0
-Cardoso,0.0833,0.3333
-Cardoso Paulista,0.3333,0.3333
-Cardoso da Serra,0.0,0.0
-Cardoso de Albuquerque,0.0,0.0
-Cardoso de Minas,0.0,0.0
+Borges Paulista,0.0,0.0
+Borges Verde,0.0,0.0
+Borges da Serra,0.1667,0.1667
+Borges das Pedras,0.0,0.0
+Borges de Cassiano,0.0,0.0
+Borges do Amparo,0.0,0.0
+Borges do Galho,-0.5,-0.5
+Borges dos Dourados,0.0,0.0
+Brito,0.0208,0.1667
+Brito Grande,-0.5,-0.5
+Brito da Praia,0.1111,0.1667
+Brito de Cirino,0.0,0.0
+Brito de Rezende,0.0,0.0
+Brito de Souza,0.1667,0.1667
+Brito do Campo,0.25,0.25
+Brito do Sul,0.0,0.0
+Brito dos Dourados,0.0,0.0
+Caldeira,0.1067,0.2
+Caldeira Paulista,0.2,0.2
+Caldeira Verde,0.1667,0.1667
+Caldeira das Flores,0.25,0.25
+Caldeira das Pedras,0.0,0.0
+Caldeira de Fonseca,0.0,0.0
+Caldeira de Gonçalves,0.3333,0.3333
+Caldeira de Minas,0.0,0.0
+Caldeira do Amparo,-0.3333,-0.3333
+Caldeira do Campo,0.0,0.0
+Caldeira dos Dourados,-0.25,-0.25
+Camargo,0.1617,0.3333
+Camargo Verde,0.2857,0.2857
+Camargo da Praia,0.0,0.0
+Camargo de Minas,0.25,0.25
+Camargo do Norte,-0.25,-0.25
+Campos,0.0089,0.2857
+Campos do Sul,0.0,0.0
+Cardoso,0.0,0.0
+Cardoso de Machado,-0.25,-0.25
+Cardoso de Oliveira,0.2,0.2
+Cardoso do Sul,0.0,0.0
+Cardoso dos Dourados,0.0,0.0
 Carvalho,0.0,0.0
-Carvalho de Sales,0.0,0.0
-Casa Grande,0.05,0.2
+Carvalho da Prata,0.0,0.0
+Carvalho de Cavalcante,0.2,0.2
+Carvalho do Campo,0.2,0.2
+Casa Grande,0.04,0.2
 Casa Grande Paulista,0.0,0.0
-Casa Grande da Mata,0.0,0.0
-Casa Grande da Prata,0.0,0.0
-Casa Grande de Macedo,0.0,0.0
+Casa Grande Verde,0.0,0.0
+Casa Grande de Lima,0.0,0.0
+Casa Grande do Galho,0.25,0.25
+Casa Grande do Oeste,0.2,0.2
+Casa Grande dos Dourados,0.2,0.2
 Cassiano,0.0,0.0
-Cassiano Verde,0.0,0.0
-Cassiano de Campos,0.0,0.0
-Cassiano de Ferreira,0.0,0.0
-Cassiano do Norte,0.25,0.25
-Castro,-0.0625,0.0
-Castro Paulista,0.0,0.0
-Castro da Praia,0.0,0.0
-Castro do Amparo,0.2667,0.3333
-Castro do Sul,0.0,0.0
-Cavalcante,0.0833,0.1667
+Cassiano da Praia,0.0,0.0
+Cassiano da Serra,0.25,0.25
+Cassiano de Goiás,-0.3333,-0.3333
+Cassiano de Pereira,0.2,0.2
+Cassiano de da Paz,0.25,0.25
+Cassiano do Amparo,0.0,0.0
+Cassiano do Sul,0.0,0.0
+Castro,0.0,0.0
+Castro do Norte,0.0,0.0
+Cavalcante,0.0,0.0
 Cavalcante Alegre,0.0,0.0
-Cavalcante da Praia,0.0,0.0
-Cavalcante de Costa,0.2857,0.2857
-Cavalcante de Leão,0.0,0.0
-Cavalcante de Martins,0.25,0.25
-Cavalcante de Pinto,0.0,0.0
-Cavalcante dos Dourados,0.0,0.0
-Cavalcanti,-0.0833,0.0
-Cavalcanti Alegre,0.0,0.0
-Cavalcanti de Goiás,0.25,0.25
-Cavalcanti de Moraes,0.2857,0.2857
-Cavalcanti de Pimenta,0.0,0.0
-Cavalcanti do Sul,0.0,0.0
-Cirino,0.1143,0.2
-Cirino da Mata,-0.125,0.0
-Cirino da Serra,0.1667,0.1667
-Cirino de Brito,-0.25,-0.25
-Cirino do Norte,0.0,0.0
-Cirino do Sul,0.0,0.0
-Correia,0.1944,0.3333
-Correia Grande,0.0,0.0
-Correia de Campos,0.25,0.25
-Correia de Cardoso,0.1667,0.1667
-Correia de Melo,0.0,0.0
-Correia do Norte,0.0,0.0
-Costa,0.0833,0.25
-Costa Paulista,0.25,0.25
-Costa de Fogaça,0.0,0.0
-Costela,0.017,0.3333
-Costela Paulista,0.25,0.25
-Costela das Pedras,0.0,0.0
-Costela de Minas,0.0,0.0
-Cunha,0.0625,0.25
-Cunha de Borges,0.0,0.0
-Cunha de Brito,0.0,0.0
-Cunha de Gonçalves,0.0,0.0
-Cunha de Minas,0.2,0.2
-Cunha de Vieira,0.0,0.0
-Câmara,0.0625,0.25
-Câmara Verde,0.0,0.0
-Câmara da Prata,0.125,0.25
-Câmara das Pedras,0.0,0.0
+Cavalcante da Mata,0.2857,0.2857
+Cavalcanti,0.0625,0.25
+Cavalcanti da Praia,0.25,0.25
+Cavalcanti das Flores,0.2,0.2
+Cavalcanti de da Cruz,0.0,0.0
+Cirino,0.1381,0.3333
+Cirino Paulista,0.0,0.0
+Cirino da Prata,0.0,0.0
+Cirino das Pedras,-0.5,-0.5
+Cirino de Caldeira,0.0,0.0
+Cirino de Cirino,0.0,0.0
+Cirino de Goiás,0.0,0.0
+Cirino de Silveira,-0.25,-0.25
+Cirino do Galho,0.25,0.25
+Cirino do Norte,0.3333,0.3333
+Correia,-0.0278,0.1667
+Correia do Campo,0.1667,0.1667
+Correia do Oeste,0.1667,0.1667
+Costa,0.1292,0.3333
+Costa da Praia,0.0,0.0
+Costa da Prata,0.0,0.0
+Costa de Costa,0.1667,0.1667
+Costa de Oliveira,0.0,0.0
+Costa do Amparo,0.0,0.0
+Costa do Galho,0.0,0.0
+Costela,0.0,0.0
+Costela do Amparo,0.0,0.0
+Costela do Campo,0.2,0.2
+Costela do Galho,0.0,0.0
+Cunha,0.1111,0.3333
+Cunha Grande,0.0,0.0
+Cunha da Mata,0.0,0.0
+Cunha de Mendes,0.1667,0.1667
+Cunha de da Rocha,0.0,0.0
+Cunha do Norte,-0.3333,-0.3333
+Câmara,-0.0429,0.2857
+Câmara da Mata,0.0,0.0
+Câmara de Goiás,0.0,0.0
 Câmara de Lopes,0.0,0.0
-Câmara de da Cruz,0.0,0.0
-Câmara do Amparo,0.0,0.0
-Câmara dos Dourados,0.0,0.0
-Dias,0.0729,0.3333
-Dias da Mata,0.0,0.0
+Câmara de Minas,0.0,0.0
+Câmara de Vasconcelos,0.2857,0.2857
+Câmara do Sul,0.15,0.25
+Dias,0.0476,0.3333
+Dias Verde,0.3333,0.3333
+Dias das Flores,0.0,0.0
 Dias das Pedras,0.0,0.0
-Dias de Silva,0.2,0.2
-Dias do Amparo,0.0,0.0
-Dias do Campo,0.25,0.25
-Duarte,0.1578,0.3333
-Duarte de Rezende,0.0,0.0
+Dias de Aparecida,0.2,0.2
+Dias de Farias,0.0,0.0
+Dias de Guerra,0.0,0.0
+Dias do Norte,0.2,0.2
+Dias do Oeste,0.1667,0.1667
+Duarte,0.1667,0.3333
+Duarte Alegre,0.0,0.0
+Duarte Grande,0.2,0.2
+Duarte Paulista,0.0,0.0
+Duarte Verde,0.0,0.0
+Duarte da Serra,0.2857,0.2857
+Duarte de Aparecida,0.0,0.0
+Duarte de Ribeiro,0.0,0.0
+Duarte de Sales,-0.25,-0.25
 Duarte do Campo,0.0,0.0
 Duarte do Norte,0.0,0.0
-Duarte dos Dourados,0.0,0.0
-Farias,0.1111,0.3333
-Farias de Campos,-0.25,-0.25
-Fernandes,-0.0333,0.2
-Fernandes Verde,0.1,0.2
-Fernandes da Prata,0.1667,0.1667
-Fernandes das Flores,0.2857,0.2857
-Fernandes de Goiás,0.2,0.2
-Fernandes do Oeste,0.2857,0.2857
-Ferreira,-0.0556,0.1667
-Ferreira Alegre,0.0,0.0
-Fogaça,-0.05,0.0
-Fogaça de Fonseca,0.1667,0.1667
-Fogaça de Goiás,0.0,0.0
-Fogaça de Minas,-0.5,-0.5
-Fonseca,0.0,0.0
-Fonseca das Pedras,0.1429,0.2857
-Fonseca do Sul,0.2,0.2
-Freitas,0.15,0.25
-Freitas da Praia,0.25,0.25
-Freitas da Prata,0.0,0.0
+Duarte dos Dourados,0.3333,0.3333
+Farias,0.15,0.25
+Farias das Flores,0.0,0.0
+Farias de Pinto,0.3333,0.3333
+Farias de Pires,-0.25,-0.25
+Farias do Norte,0.2,0.2
+Farias dos Dourados,0.25,0.25
+Fernandes,0.0667,0.3333
+Fernandes Paulista,0.0,0.0
+Fernandes da Mata,0.0,0.0
+Fernandes das Flores,0.25,0.25
+Fernandes de Alves,0.0,0.0
+Fernandes do Amparo,-0.3333,-0.3333
+Fernandes dos Dourados,0.0,0.0
+Ferreira,0.1884,0.2857
+Ferreira da Praia,0.0,0.0
+Ferreira de Costela,-0.3333,-0.3333
+Ferreira de Rios,0.0,0.0
+Ferreira do Campo,0.2,0.2
+Ferreira dos Dourados,-0.125,0.0
+Fogaça,0.131,0.3333
+Fogaça de Caldeira,0.0,0.0
+Fonseca,0.05,0.2
+Fonseca da Prata,0.0,0.0
+Fonseca das Pedras,0.0,0.0
+Fonseca de Sampaio,0.2,0.2
+Freitas,0.0389,0.2
+Freitas de Jesus,0.0,0.0
+Freitas de Peixoto,0.0,0.0
 Freitas do Sul,0.0,0.0
-Freitas dos Dourados,0.25,0.25
-Garcia,0.1125,0.25
-Garcia da Mata,0.0,0.0
-Garcia da Praia,0.1667,0.1667
-Garcia da Serra,0.3333,0.3333
-Garcia de Brito,0.0,0.0
-Garcia de Melo,0.2,0.2
-Garcia de Moreira,0.3333,0.3333
-Garcia de Porto,0.2857,0.2857
-Garcia dos Dourados,0.1667,0.1667
-Gomes,0.0333,0.1667
-Gomes da Praia,0.2857,0.2857
-Gomes de Ferreira,-0.25,-0.25
-Gomes de Goiás,0.0,0.0
-Gomes do Amparo,-0.15,0.2
-Gonçalves,0.0917,0.3333
-Gonçalves da Serra,0.1667,0.1667
-Gonçalves de Ramos,0.0,0.0
-Gonçalves do Campo,0.2,0.2
-Gonçalves do Galho,0.2,0.2
-Guerra,0.1339,0.2857
-Guerra Grande,-0.125,0.0
-Guerra Verde,0.0,0.0
-Guerra de Minas,0.2857,0.2857
-Guerra de da Rocha,0.25,0.25
-Guerra do Campo,0.0,0.0
-Guerra do Galho,0.25,0.25
-Guerra do Norte,0.0,0.0
-Jesus,0.05,0.2
-Jesus da Prata,0.25,0.25
-Jesus das Pedras,0.0,0.0
-Jesus de Lopes,0.0,0.0
-Jesus de Minas,-0.1667,0.0
-Jesus do Norte,0.0,0.0
-Jesus do Oeste,0.0,0.0
-Jesus dos Dourados,0.2857,0.2857
-Leão,0.0574,0.2
-Leão Grande,0.1667,0.1667
-Leão da Praia,0.0,0.0
-Leão da Serra,0.0,0.0
-Leão de Minas,0.0,0.0
-Leão de Moura,-0.5,-0.5
-Leão do Norte,0.0,0.0
-Lima,0.1186,0.2857
-Lima Verde,0.0,0.0
-Lima da Praia,0.3333,0.3333
-Lima de da Luz,0.0,0.0
-Lopes,0.1339,0.2857
-Lopes Grande,-0.5,-0.5
-Lopes da Praia,0.1667,0.1667
-Lopes do Amparo,0.0,0.0
-Lopes do Campo,0.0,0.0
-Macedo,-0.0833,0.0
-Macedo de Goiás,0.3333,0.3333
-Macedo do Galho,0.0,0.0
-Machado,0.0875,0.25
-Machado das Pedras,0.2,0.2
-Machado de Monteiro,0.25,0.25
-Machado de Pinto,0.25,0.25
-Machado do Norte,0.25,0.25
-Marques,0.0,0.0
-Marques das Flores,0.2,0.2
-Marques de Camargo,0.25,0.25
-Marques de Silveira,0.0,0.0
-Marques de Vieira,0.0,0.0
-Marques do Amparo,0.0,0.0
-Marques do Galho,0.0,0.0
-Martins,0.0,0.0
-Martins da Mata,0.2,0.2
-Martins da Prata,0.0,0.0
-Martins de Nunes,0.0,0.0
-Martins do Campo,0.0,0.0
-Martins dos Dourados,0.0,0.0
-Melo,-0.0278,0.1667
-Melo de Borges,0.3333,0.3333
-Melo do Amparo,0.0,0.0
-Melo do Campo,0.0,0.0
-Melo do Oeste,0.0,0.0
-Mendes,-0.0167,0.25
-Mendes Grande,0.0,0.0
-Mendes da Serra,0.0,0.0
-Mendes de Vargas,0.0,0.0
-Mendonça,0.1071,0.2857
-Mendonça Paulista,0.0,0.0
-Mendonça da Mata,0.0,0.0
-Mendonça da Serra,0.1667,0.1667
-Mendonça de Câmara,0.0,0.0
-Mendonça de Minas,0.0,0.0
-Mendonça de Montenegro,0.0,0.0
-Mendonça de Pacheco,0.0,0.0
-Monteiro,-0.0429,0.2857
-Monteiro das Pedras,0.0,0.0
-Monteiro do Campo,0.0,0.0
-Montenegro,0.0,0.0
-Montenegro de Brito,0.0,0.0
-Montenegro de Nascimento,0.0,0.0
-Montenegro do Norte,0.0,0.0
-Moraes,0.0972,0.3333
-Moraes das Pedras,0.0,0.0
-Moraes de Aparecida,0.0,0.0
-Moraes de Castro,0.2,0.2
-Moraes de Minas,0.3333,0.3333
-Moraes do Norte,0.3333,0.3333
-Moraes dos Dourados,0.2,0.2
-Moreira,0.1389,0.25
-Moreira Alegre,0.0,0.0
-Moreira da Praia,0.25,0.25
-Moreira de Almeida,0.2,0.2
-Moreira de Leão,0.0,0.0
-Moreira do Oeste,0.0,0.0
-Moura,0.0833,0.1667
-Moura das Pedras,0.25,0.25
-Moura de Barbosa,0.0,0.0
-Moura do Norte,0.0,0.0
-Moura do Sul,0.0,0.0
-Nascimento,0.1361,0.25
-Nascimento Alegre,0.3333,0.3333
-Nascimento de Andrade,0.0,0.0
-Nascimento de Rodrigues,0.0,0.0
-Nogueira,0.125,0.25
-Nogueira Paulista,0.0,0.0
-Nogueira Verde,0.1429,0.2857
-Nogueira de Pacheco,0.25,0.25
-Novaes,0.0971,0.2857
-Novaes da Serra,0.25,0.25
-Novaes de Camargo,0.0,0.0
-Novaes de Cassiano,0.0,0.0
-Novaes de Costela,0.0,0.0
-Novaes de Moreira,0.3333,0.3333
-Novaes de Souza,0.0,0.0
-Novaes de da Costa,0.0,0.0
-Novaes de da Luz,0.1667,0.1667
-Novaes do Amparo,0.2,0.2
-Novaes do Galho,0.0,0.0
-Novaes do Norte,0.0,0.0
-Novais,0.15,0.25
-Novais das Flores,0.0,0.0
-Novais de Teixeira,0.3333,0.3333
-Novais do Galho,0.0,0.0
-Nunes,0.1028,0.25
-Nunes da Prata,0.0,0.0
+Garcia,0.1405,0.3333
+Garcia de Albuquerque,0.3333,0.3333
+Garcia de Goiás,0.0,0.0
+Garcia de Nogueira,0.0,0.0
+Gomes,0.14,0.25
+Gomes Alegre,0.0,0.0
+Gomes de Ribeiro,0.0,0.0
+Gomes do Amparo,0.2,0.2
+Gonçalves,0.1167,0.3333
+Gonçalves Grande,0.0,0.0
+Gonçalves Paulista,0.0,0.0
+Gonçalves de Minas,0.0,0.0
+Gonçalves do Norte,0.1,0.2
+Guerra,0.0,0.0
+Guerra de Goiás,0.0,0.0
+Guerra de Guerra,-0.25,-0.25
+Guerra de Minas,0.0,0.0
+Guerra de Pires,0.0,0.0
+Guerra de Silva,0.0,0.0
+Jesus,0.0,0.0
+Jesus Paulista,0.0,0.0
+Jesus de Goiás,0.0,0.0
+Jesus de Gomes,0.25,0.25
+Jesus do Campo,0.3333,0.3333
+Jesus do Galho,0.25,0.25
+Leão,0.175,0.25
+Leão Grande,0.0,0.0
+Leão Verde,0.0,0.0
+Leão do Galho,-0.3333,-0.3333
+Lima,0.0,0.0
+Lima Alegre,0.0,0.0
+Lima da Serra,-0.25,-0.25
+Lima das Flores,0.0,0.0
+Lima de Freitas,0.0,0.0
+Lima de Minas,0.0,0.0
+Lima de da Mata,0.25,0.25
+Lima do Galho,0.0,0.0
+Lopes,0.1238,0.3333
+Lopes Grande,0.0,0.0
+Lopes da Prata,0.0,0.0
+Lopes de Jesus,0.0,0.0
+Lopes do Galho,0.0,0.0
+Macedo,0.0,0.0
+Macedo de Pastor,0.0,0.0
+Macedo de Silveira,0.1667,0.1667
+Macedo do Amparo,0.2857,0.2857
+Macedo do Sul,0.0,0.0
+Machado,0.0,0.0
+Machado da Praia,0.0,0.0
+Machado das Flores,0.25,0.25
+Machado de da Costa,0.0,0.0
+Machado do Sul,0.0,0.0
+Marques,0.0833,0.3333
+Marques Grande,0.0,0.0
+Marques Verde,0.1667,0.1667
+Marques da Mata,0.1667,0.1667
+Marques da Prata,-0.25,-0.25
+Marques de Machado,0.1667,0.1667
+Marques de da Cruz,0.0,0.0
+Marques do Campo,0.0,0.0
+Martins,0.0952,0.2857
+Martins Alegre,0.0,0.0
+Martins Paulista,0.2,0.2
+Martins da Praia,0.0,0.0
+Martins do Norte,0.25,0.25
+Martins do Oeste,0.0,0.0
+Melo,0.0833,0.3333
+Melo de Goiás,-0.3333,-0.3333
+Melo de Monteiro,0.25,0.25
+Melo do Amparo,0.3333,0.3333
+Melo do Norte,0.2857,0.2857
+Mendes,-0.0424,0.25
+Mendes Alegre,0.2,0.2
+Mendes da Praia,0.1667,0.1667
+Mendes de Cirino,0.25,0.25
+Mendes de Freitas,0.0,0.0
+Mendes do Amparo,0.1667,0.1667
+Mendonça,0.0667,0.2
+Mendonça Alegre,0.2,0.2
+Mendonça da Praia,0.0,0.0
+Mendonça da Prata,0.3333,0.3333
+Mendonça de Vieira,0.0,0.0
+Monteiro,0.1389,0.25
+Monteiro Paulista,0.0,0.0
+Monteiro de Albuquerque,0.0,0.0
+Monteiro de Mendes,0.0,0.0
+Monteiro de Pastor,0.2,0.2
+Monteiro de Vargas,0.0,0.0
+Monteiro do Galho,0.0,0.0
+Montenegro,0.1545,0.3333
+Montenegro Grande,0.0,0.0
+Montenegro da Praia,0.0,0.0
+Montenegro das Pedras,0.0,0.0
+Montenegro de Goiás,0.0,0.0
+Montenegro de Lima,0.0,0.0
+Montenegro de Minas,0.0,0.0
+Montenegro do Campo,0.0,0.0
+Moraes,0.1167,0.3333
+Moraes da Serra,0.0,0.0
+Moreira,-0.0278,0.1667
+Moreira da Mata,0.3333,0.3333
+Moreira das Pedras,0.0,0.0
+Moreira do Norte,0.0,0.0
+Moreira do Sul,0.25,0.25
+Moura,0.125,0.25
+Moura de Abreu,0.0,0.0
+Moura do Norte,0.1667,0.1667
+Nascimento,0.0667,0.2
+Nascimento Paulista,-0.25,-0.25
+Nascimento da Mata,0.0,0.0
+Nascimento da Praia,0.0,0.0
+Nascimento de Aparecida,0.2,0.2
+Nascimento de Goiás,0.0,0.0
+Nascimento do Campo,0.0,0.0
+Nascimento do Norte,0.3333,0.3333
+Nogueira,0.0667,0.3333
+Nogueira de Minas,0.0,0.0
+Nogueira do Oeste,0.0,0.0
+Novaes,0.0104,0.3333
+Novaes de Minas,0.0,0.0
+Novais,0.0,0.25
+Novais Grande,0.2857,0.2857
+Novais de da Rosa,0.0,0.0
+Novais do Norte,0.0,0.0
+Novais do Oeste,0.0,0.0
+Novais do Sul,0.1667,0.1667
+Nunes,0.0778,0.25
+Nunes Alegre,0.0,0.0
+Nunes da Serra,-0.3333,-0.3333
 Nunes de Goiás,0.0,0.0
-Nunes do Amparo,0.0,0.0
-Oliveira,0.0556,0.3333
-Oliveira Alegre,-0.3333,-0.3333
-Oliveira da Praia,0.0,0.0
-Oliveira da Prata,0.0,0.0
-Oliveira da Serra,0.0,0.0
-Oliveira das Pedras,0.1667,0.1667
-Oliveira de Carvalho,0.25,0.25
-Oliveira de Correia,0.0,0.0
-Pacheco,0.0889,0.3333
-Pacheco das Flores,0.0417,0.3333
-Pacheco das Pedras,0.3333,0.3333
-Pacheco de Nascimento,0.0,0.0
-Pacheco de Pimenta,0.0,0.0
-Pacheco do Campo,0.2,0.2
-Pastor,0.0,0.0
-Pastor Paulista,0.0,0.0
-Pastor da Praia,0.0,0.0
-Pastor das Flores,0.1,0.2
-Pastor de Lopes,0.1667,0.1667
-Pastor do Galho,0.25,0.25
-Peixoto,0.0,0.0
-Pereira,0.1306,0.3333
-Pereira da Serra,0.0,0.0
-Pereira do Oeste,0.3333,0.3333
-Pimenta,0.0689,0.3333
-Pimenta Paulista,0.0,0.0
-Pimenta da Praia,0.25,0.25
-Pimenta das Flores,0.0,0.0
-Pimenta do Norte,0.0,0.0
-Pinto,0.0,0.0
-Pinto Paulista,0.1667,0.1667
-Pinto da Mata,0.0,0.0
-Pinto da Prata,0.0,0.0
-Pinto de Cirino,-0.3333,-0.3333
-Pinto do Amparo,0.0,0.0
-Pinto do Norte,-0.25,-0.25
-Pires,0.0667,0.2
-Pires Alegre,0.1667,0.1667
-Pires da Prata,0.1,0.2
-Pires da Serra,0.0,0.0
-Pires de Azevedo,0.0,0.0
-Pires de Goiás,0.0,0.0
-Pires de Guerra,0.2857,0.2857
-Pires do Amparo,0.0,0.0
-Pires do Campo,0.1667,0.3333
+Nunes de Mendes,0.0,0.0
+Nunes do Amparo,-0.125,0.25
+Nunes dos Dourados,0.0,0.0
+Oliveira,0.0571,0.2857
+Oliveira Paulista,0.0,0.0
+Oliveira do Campo,0.3333,0.3333
+Oliveira do Norte,-0.3333,-0.3333
+Pacheco,0.1405,0.2857
+Pacheco das Pedras,0.0,0.0
+Pacheco de Costa,0.2,0.2
+Pacheco de Minas,0.0,0.0
+Pacheco do Campo,0.0,0.0
+Pastor,0.1111,0.3333
+Pastor da Prata,0.0,0.0
+Pastor de Minas,0.0,0.0
+Pastor de da Mata,0.0,0.0
+Peixoto,-0.0667,0.0
+Peixoto Paulista,0.0,0.0
+Peixoto de Casa Grande,0.25,0.25
+Peixoto do Sul,0.0,0.0
+Pereira,0.1276,0.2857
+Pereira Alegre,0.0,0.0
+Pereira Grande,0.3333,0.3333
+Pereira de Nascimento,0.0,0.0
+Pimenta,0.1448,0.3333
+Pimenta da Serra,0.1667,0.1667
+Pimenta de Correia,0.0,0.0
+Pimenta do Galho,0.0,0.0
+Pinto,0.1,0.2
+Pinto da Serra,0.0,0.0
+Pinto de Costela,0.2,0.2
+Pinto de Fogaça,0.0,0.0
+Pinto do Oeste,0.0,0.0
+Pires,0.0833,0.3333
+Pires Paulista,0.2,0.2
+Pires das Pedras,0.1667,0.1667
+Pires do Norte,0.25,0.25
 Pires do Sul,0.0,0.0
-Porto,0.05,0.2
-Porto Paulista,0.25,0.25
-Porto de Moura,0.0,0.0
-Ramos,0.0484,0.2857
-Ramos da Mata,0.0,0.0
-Ramos de Aragão,-0.3333,-0.3333
-Ramos de Cunha,0.0,0.0
-Ramos de Montenegro,0.0,0.0
-Rezende,0.0,0.25
-Rezende Alegre,0.0,0.0
-Rezende de Costela,0.0,0.0
-Rezende de Goiás,0.3333,0.3333
+Porto,0.0833,0.25
+Porto Grande,0.25,0.25
+Porto da Mata,0.0,0.0
+Porto da Serra,-0.25,-0.25
+Porto das Flores,-0.5,-0.5
+Porto do Oeste,0.0,0.0
+Porto do Sul,0.0,0.0
+Ramos,0.144,0.3333
+Ramos de Abreu,-0.3333,-0.3333
+Ramos de Castro,0.0,0.0
+Ramos de Goiás,0.25,0.25
+Ramos de Vasconcelos,0.0,0.0
+Ramos de da Mata,0.0,0.0
+Ramos do Galho,-0.025,0.2
+Rezende,0.0667,0.3333
+Rezende da Mata,0.0,0.0
+Rezende das Pedras,0.0,0.0
 Rezende do Amparo,0.0,0.0
-Rezende do Sul,0.0,0.0
-Ribeiro,0.1042,0.25
-Ribeiro da Praia,0.0,0.0
-Ribeiro da Prata,0.0,0.0
-Ribeiro de Castro,0.0,0.0
-Ribeiro do Amparo,0.0,0.0
-Ribeiro do Galho,0.3333,0.3333
-Rios,-0.1111,0.0
-Rios Alegre,0.25,0.25
-Rios da Praia,0.0,0.0
-Rios de Teixeira,0.0,0.0
+Rezende do Sul,0.1667,0.1667
+Ribeiro,0.0714,0.25
+Ribeiro Paulista,-0.25,-0.25
+Ribeiro da Mata,0.0,0.0
+Ribeiro da Serra,0.0,0.0
+Ribeiro das Flores,0.1667,0.3333
+Ribeiro das Pedras,0.2857,0.2857
+Ribeiro de Minas,0.0,0.0
+Rios,0.1,0.25
+Rios Grande,0.0,0.0
+Rios da Prata,-0.1667,0.0
+Rios de Lima,-0.5,-0.5
+Rios de Vasconcelos,0.3333,0.3333
 Rios do Amparo,0.0,0.0
-Rocha,0.0833,0.3333
-Rocha das Flores,0.0,0.0
-Rocha das Pedras,0.3333,0.3333
-Rocha de Ferreira,0.0,0.0
+Rocha,0.05,0.2
+Rocha da Praia,0.0,0.0
 Rocha de Minas,0.0,0.0
-Rocha de Teixeira,0.0,0.0
-Rocha de da Conceição,0.0,0.0
-Rocha do Norte,0.0,0.0
-Rocha do Sul,0.3333,0.3333
-Rodrigues,0.0556,0.1667
-Rodrigues Paulista,0.2,0.2
-Rodrigues da Prata,0.0,0.0
-Rodrigues do Campo,0.0,0.0
-Rodrigues do Norte,0.0,0.0
-Sales,0.0972,0.25
-Sales das Pedras,0.2,0.2
-Sales de Goiás,0.1667,0.1667
-Sampaio,0.0417,0.1667
-Sampaio Grande,0.0,0.0
-Sampaio da Mata,0.2,0.2
-Sampaio da Serra,0.0,0.0
+Rodrigues,0.0167,0.25
+Rodrigues Verde,-0.25,-0.25
+Rodrigues das Flores,0.0,0.0
+Rodrigues das Pedras,0.3333,0.3333
+Rodrigues de Melo,0.1667,0.1667
+Rodrigues do Oeste,0.25,0.25
+Sales,0.0333,0.2
+Sales das Flores,0.0,0.0
+Sales de Pires,0.2857,0.2857
+Sales do Galho,0.2,0.2
+Sales do Norte,0.25,0.25
+Sampaio,-0.1667,0.25
+Sampaio Paulista,-0.3333,-0.3333
+Sampaio da Serra,0.2,0.2
+Sampaio das Flores,0.2083,0.3333
 Sampaio do Galho,0.0,0.0
-Sampaio do Oeste,0.0,0.0
-Santos,0.05,0.25
-Santos Paulista,0.0,0.0
-Santos Verde,0.2,0.2
-Santos da Praia,0.0,0.0
-Santos da Serra,-0.25,0.0
-Santos de Montenegro,-0.25,-0.25
-Santos de Silveira,0.2,0.2
-Santos de Sousa,0.1667,0.1667
-Santos do Campo,0.2,0.2
-Silva,0.0,0.0
-Silva da Serra,-0.3333,-0.3333
-Silva das Flores,0.0,0.0
-Silveira,0.0167,0.2
-Silveira Alegre,0.0,0.0
-Silveira da Mata,-0.25,-0.25
-Silveira das Flores,0.0,0.0
-Silveira de Camargo,0.0,0.0
-Silveira de Martins,0.2,0.2
-Silveira de Minas,0.3333,0.3333
-Silveira do Campo,-0.25,-0.25
-Silveira do Galho,0.0,0.0
-Silveira do Oeste,0.0,0.0
-Siqueira,0.1667,0.3333
-Siqueira Paulista,0.0,0.0
-Siqueira de Correia,0.0,0.0
-Siqueira de Garcia,0.1667,0.1667
-Siqueira de Sousa,0.2,0.2
-Siqueira de da Cunha,0.0,0.0
-Siqueira do Amparo,0.0,0.0
-Sousa,0.0,0.0
-Sousa da Mata,0.0,0.0
-Sousa da Praia,0.0,0.0
-Sousa de Duarte,0.0,0.0
-Sousa do Norte,0.0,0.0
-Souza,-0.0625,0.0
-Souza de Farias,0.0,0.0
-Sá,0.0567,0.3333
-Sá Alegre,0.0,0.0
-Sá Verde,0.0,0.0
-Sá da Mata,0.2,0.2
-Sá de Santos,0.0,0.0
-Sá do Sul,0.0,0.0
-Teixeira,0.0625,0.3333
-Teixeira Paulista,0.0,0.0
-Teixeira de Cardoso,0.0,0.0
-Teixeira de Goiás,0.0,0.0
-Vargas,0.05,0.2
-Vargas das Pedras,0.3333,0.3333
-Vargas de Costela,0.0,0.0
-Vargas de Câmara,0.3333,0.3333
-Vargas de Garcia,0.0,0.0
-Vargas do Norte,0.0,0.0
-Vasconcelos,0.0,0.0
-Vasconcelos Grande,0.0,0.0
-Vasconcelos Paulista,0.0,0.0
-Vasconcelos Verde,0.25,0.25
+Santos,0.1631,0.2857
+Santos Grande,0.0,0.0
+Santos do Oeste,0.0,0.0
+Silva,0.1448,0.3333
+Silva Grande,0.0,0.0
+Silva Verde,0.0,0.0
+Silva da Mata,0.0,0.0
+Silva da Praia,0.0,0.0
+Silva das Pedras,0.25,0.25
+Silva de Araújo,0.0,0.0
+Silva de Gomes,0.0,0.0
+Silva de Pires,0.0,0.0
+Silva do Galho,0.2,0.2
+Silva dos Dourados,0.0,0.0
+Silveira,0.0611,0.25
+Silveira da Prata,0.25,0.25
+Silveira de Sales,0.1667,0.1667
+Silveira do Campo,0.0,0.0
+Silveira do Norte,-0.5,-0.5
+Siqueira,0.0476,0.3333
+Siqueira Alegre,0.2917,0.3333
+Siqueira Paulista,-0.5,-0.5
+Siqueira da Praia,0.0,0.0
+Siqueira da Prata,0.2,0.2
+Siqueira de Brito,0.3333,0.3333
+Siqueira do Norte,0.1667,0.1667
+Siqueira do Oeste,0.1,0.2
+Sousa,-0.0143,0.2
+Sousa Alegre,0.0,0.0
+Sousa do Norte,-0.25,-0.25
+Souza,0.1111,0.3333
+Souza de Azevedo,0.0,0.0
+Souza de Cassiano,-0.3333,-0.3333
+Souza de Correia,0.0,0.0
+Souza de Marques,0.0,0.0
+Souza do Galho,0.0,0.0
+Sá,-0.0125,0.2
+Sá Paulista,0.0,0.0
+Sá da Serra,0.25,0.25
+Sá de Fonseca,0.0,0.0
+Sá de Goiás,0.0,0.0
+Teixeira,0.0833,0.3333
+Teixeira de Cunha,0.3333,0.3333
+Teixeira de Moreira,0.25,0.25
+Teixeira de da Conceição,0.25,0.25
+Vargas,0.1417,0.2
+Vargas Alegre,0.2,0.2
+Vargas de Ribeiro,0.0,0.0
+Vasconcelos,-0.0222,0.2
+Vasconcelos da Prata,0.0,0.0
 Vasconcelos da Serra,0.0,0.0
-Vasconcelos de Rios,0.0,0.0
-Viana,0.1286,0.3333
+Vasconcelos de Alves,0.0,0.0
+Vasconcelos de Goiás,0.0,0.0
+Vasconcelos do Oeste,0.0,0.0
+Vasconcelos dos Dourados,0.0,0.0
+Viana,0.0214,0.2
+Viana da Mata,0.0,0.0
 Viana da Prata,0.0,0.0
-Viana de Mendonça,0.0,0.0
-Viana de Minas,0.0,0.0
-Viana de Pires,0.0,0.0
-Viana de Rocha,0.25,0.25
-Viana do Campo,0.0,0.0
-Viana do Galho,-0.25,-0.25
-Vieira,0.0,0.0
-Vieira de Goiás,0.0,0.0
-Vieira de Silva,0.3333,0.3333
-Vieira de da Mota,0.0,0.0
-Vieira do Campo,-0.25,-0.25
-Vieira do Galho,0.25,0.25
-Vieira do Sul,0.0,0.0
-Vieira dos Dourados,-0.25,-0.25
-da Conceição,0.0417,0.25
-da Conceição de Borges,-0.3333,-0.3333
-da Costa,0.04,0.2
-da Costa do Amparo,0.0,0.0
-da Cruz,0.1067,0.3333
-da Cruz Alegre,0.0,0.0
-da Cruz Verde,0.0,0.0
-da Cruz da Serra,0.0,0.0
-da Cruz de Machado,0.3333,0.3333
-da Cruz dos Dourados,0.2,0.2
-da Cunha,0.05,0.25
-da Cunha de Vieira,0.1667,0.1667
-da Cunha do Campo,-0.0667,0.2
-da Cunha do Galho,0.2667,0.3333
-da Luz,0.0833,0.25
-da Luz da Mata,0.1667,0.1667
-da Luz do Oeste,0.3333,0.3333
-da Mata,0.05,0.2
-da Mata Alegre,0.0,0.0
-da Mata da Praia,-0.25,-0.25
-da Mata da Serra,-0.25,-0.25
+Viana de Minas,0.25,0.25
+Vieira,0.3333,0.3333
+Vieira Verde,0.0,0.0
+Vieira de Moura,0.0,0.0
+Vieira do Campo,-0.3333,-0.3333
+Vieira do Oeste,0.1667,0.1667
+da Conceição,0.0625,0.25
+da Conceição da Prata,0.25,0.25
+da Conceição das Pedras,0.0,0.0
+da Conceição de Guerra,0.3333,0.3333
+da Conceição de Oliveira,0.25,0.25
+da Conceição do Amparo,0.0,0.0
+da Conceição do Norte,0.2,0.2
+da Conceição dos Dourados,-0.1667,0.0
+da Costa,0.0312,0.3333
+da Costa de Souza,-0.3333,-0.3333
+da Costa do Amparo,0.25,0.25
+da Costa do Campo,0.0,0.0
+da Costa dos Dourados,0.2,0.2
+da Cruz,0.0595,0.25
+da Cruz da Praia,0.0,0.0
+da Cruz das Flores,0.0,0.0
+da Cruz de Leão,-0.3333,-0.3333
+da Cruz de Moraes,0.25,0.25
+da Cruz de Viana,-0.25,-0.25
+da Cunha,0.1458,0.3333
+da Cunha Verde,0.3333,0.3333
+da Cunha da Praia,0.2,0.2
+da Cunha de Barbosa,0.0,0.0
+da Cunha de Pimenta,0.0,0.0
+da Luz,0.1504,0.3333
+da Luz da Mata,-0.25,-0.25
+da Luz da Praia,0.0,0.0
+da Luz das Flores,0.0,0.0
+da Luz de Cardoso,0.0,0.0
+da Luz de Goiás,0.0,0.0
+da Luz de Gomes,0.0,0.0
+da Luz do Norte,0.2,0.2
+da Luz do Oeste,-0.3333,-0.3333
+da Mata,0.0389,0.2
+da Mata da Mata,0.1667,0.1667
 da Mata das Flores,0.0,0.0
-da Mata do Campo,0.0,0.0
-da Mota,0.0833,0.25
-da Mota Grande,0.0,0.0
-da Mota de Azevedo,0.2857,0.2857
-da Mota de Duarte,0.0,0.0
-da Mota de Fonseca,0.25,0.25
-da Mota de Goiás,0.0667,0.2
-da Mota de Pereira,0.0,0.0
-da Mota do Norte,0.2,0.2
-da Paz,-0.0667,0.1667
-da Paz Grande,0.0,0.0
+da Mata de Gonçalves,0.0,0.0
+da Mata de Moreira,0.0,0.0
+da Mata dos Dourados,0.0,0.0
+da Mota,-0.2167,0.0
+da Mota Grande,0.1667,0.1667
+da Mota da Serra,0.0,0.0
+da Mota das Flores,0.0,0.0
+da Mota de da Cruz,0.0,0.0
+da Mota do Campo,0.0,0.0
+da Paz,-0.0333,0.1667
 da Paz Paulista,0.0,0.0
-da Paz das Pedras,0.0,0.0
-da Rocha,0.0312,0.3333
-da Rocha das Flores,0.0,0.0
-da Rocha de Minas,0.0,0.0
-da Rocha de Novais,0.0,0.0
-da Rocha de da Cruz,0.0,0.0
-da Rosa,-0.0111,0.2
-da Rosa da Mata,0.0,0.0
-da Rosa de Andrade,0.0,0.0
-da Rosa de Pastor,0.0,0.0
-das Neves,0.0833,0.25
+da Paz de Pires,0.0,0.0
+da Paz de Rios,0.0,0.0
+da Rocha,0.0,0.0
+da Rocha Alegre,0.0,0.0
+da Rocha de Alves,0.0,0.0
+da Rocha de Jesus,0.0,0.0
+da Rocha de Minas,0.2,0.2
+da Rocha de Rezende,0.0,0.0
+da Rocha de Sampaio,0.0,0.0
+da Rocha do Norte,0.0,0.0
+da Rocha do Oeste,-0.3333,-0.3333
+da Rosa,0.05,0.2
+da Rosa Grande,0.0,0.0
+da Rosa da Serra,0.0,0.0
+das Neves,0.0875,0.3333
+das Neves Alegre,0.0,0.0
 das Neves Grande,0.0,0.0
-das Neves Verde,0.25,0.25
-das Neves da Prata,0.0,0.0
-das Neves da Serra,0.0,0.0
-das Neves das Pedras,0.125,0.25
-das Neves de Vargas,0.0,0.0
-das Neves do Campo,0.1667,0.1667
+das Neves de Borges,0.0,0.0
+das Neves do Campo,0.0,0.0
 das Neves do Oeste,0.0,0.0
+das Neves do Sul,0.25,0.25
