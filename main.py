@@ -2,15 +2,17 @@
 Monitor de Ruptura por Regiao — Lojas Giovanna.
 
 Pipeline ETL em 3 estagios:
-  Estagio 1: fetch_data() — consome API da DataMission e salva JSON bruto
-  Estagio 2: process_inventory() — le JSON, computa ruptura, resumo por regiao
-  Estagio 3: print_summary() — exibe top 3 regioes e exporta CSV final
+Estagio 1: fetch_data() — consome API da DataMission e salva JSON bruto
+           (ou verifica arquivo local em modo --local)
+Estagio 2: pd.read_json() — le JSON persistido do disco, computa ruptura,
+           resumo por regiao
+Estagio 3: print_summary() — exibe top 3 regioes e exporta CSV final
 
 Calculo de ruptura:
-    ruptura = (demanda_prevista - estoque_atual) / demanda_prevista
-    Indica o percentual da demanda que NAO foi atendida pelo estoque.
-    Valores positivos = ruptura (estoque insuficiente).
-    Valores negativos = excesso de estoque.
+ruptura = (demanda_prevista - estoque_atual) / demanda_prevista
+Indica o percentual da demanda que NAO foi atendida pelo estoque.
+Valores positivos = ruptura (estoque insuficiente).
+Valores negativos = excesso de estoque.
 """
 
 import requests
@@ -233,21 +235,6 @@ def save_report(summary: pd.DataFrame, filepath: str) -> None:
 # Pipeline principal
 # =============================================================================
 
-def load_local_json(filepath: str) -> list[dict]:
-    """Carrega dados de um arquivo JSON local."""
-    if not os.path.exists(filepath):
-        print(f"ERRO: Arquivo {filepath} nao encontrado.")
-        print("Dica: execute primeiro sem --local para baixar da API.")
-        sys.exit(1)
-    with open(filepath, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    if not data or (isinstance(data, list) and len(data) == 0):
-        print(f"ERRO: Arquivo {filepath} esta vazio.")
-        sys.exit(1)
-    print(f"[load_local_json] Carregados {len(data)} registros de {filepath}")
-    return data
-
-
 def main():
     """
     Executa os 3 estagios do pipeline em sequencia:
@@ -273,20 +260,29 @@ def main():
     # --- Estagio 1: Ingestao ---
     print("\n--- Estagio 1: Obter dados ---")
     if args.local:
-        print("[modo local] Carregando dados existentes...")
-        raw_data = load_local_json(json_path)
+        print("[modo local] Verificando arquivo JSON existente...")
+        if not os.path.exists(json_path):
+            print(f"ERRO: Arquivo {json_path} nao encontrado.")
+            print("Dica: execute primeiro sem --local para baixar da API.")
+            sys.exit(1)
+        print(f"[modo local] Arquivo encontrado: {json_path}")
     else:
         print("[modo API] Baixando da API DataMission...")
         raw_data = fetch_data()
         save_raw_json(raw_data, json_path)
 
-    if not raw_data:
-        print("\n[ERRO] Nenhum registro retornado pela API. Verifique o token e o project_id.")
+    if not os.path.exists(json_path):
+        print("\n[ERRO] JSON persistido nao encontrado em disco. Verifique a ingestao.")
         sys.exit(1)
 
     # --- Estagio 2: Processamento ---
     print("\n--- Estagio 2: Processar dados e calcular ruptura ---")
-    df = pd.DataFrame(raw_data)
+    print(f"[Estagio 2] Lendo JSON persistido com pd.read_json: {json_path}")
+    df = pd.read_json(json_path, dtype={"order_id": str, "customer_id": str})
+    if df.empty:
+        print("[Estagio 2] AVISO: DataFrame vazio apos pd.read_json — nenhum registro para processar.")
+        print("\n[ERRO] Nenhum registro encontrado no JSON persistido.")
+        sys.exit(1)
     df_filtered = build_demand_forecast(df)
     summary = compute_rupture(df_filtered)
 
@@ -297,9 +293,9 @@ def main():
     save_report(summary, report_path)
 
     print("\n[OK] Pipeline completo (3 estagios)!")
-    print(f"   Modo:       {'local' if args.local else 'API'}")
-    print(f"   JSON bruto: {json_path} ({len(raw_data)} registros)")
-    print(f"   Relatorio:  {report_path} ({len(summary)} regioes)")
+    print(f" Modo: {'local' if args.local else 'API'}")
+    print(f" JSON bruto: {json_path} ({len(df)} registros lidos)")
+    print(f" Relatorio: {report_path} ({len(summary)} regioes)")
 
 
 if __name__ == "__main__":
