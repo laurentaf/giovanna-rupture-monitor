@@ -100,7 +100,7 @@ Relatório final
 | pandas vs. DuckDB | DuckDB, Polars | pandas — ecossistema maduro para CI/CD e prototipação |
 | `.env` vs. secrets manager | AWS Secrets, Vault | `.env` + `os.environ` — portátil e sem dependência cloud |
 
-> 📖 Detalhamento completo da decisão: [`decisions/ADR-001-rupture-pipeline.md`](decisions/ADR-001-rupture-pipeline.md)
+> 📖 Detalhamento completo da decisão: [`spec/adr/001-rupture-pipeline.md`](spec/adr/001-rupture-pipeline.md)
 
 ---
 
@@ -153,7 +153,8 @@ Pipeline executado com **20.000 registros** da API DataMission — 2 chamadas de
 | [`data/raw_data.json`](data/raw_data.json) | JSON bruto da API (1.000 registros originais) |
 | [`data/rupture_report.csv`](data/rupture_report.csv) | Resumo por região — média e máximo da ruptura |
 | [`data/quality_rules.md`](data/quality_rules.md) | Regras de qualidade documentadas (DQ-01 a DQ-06) |
-| [`decisions/ADR-001-rupture-pipeline.md`](decisions/ADR-001-rupture-pipeline.md) | Architecture Decision Record |
+| [`spec/adr/001-rupture-pipeline.md`](spec/adr/001-rupture-pipeline.md) | Architecture Decision Record |
+| [`spec/adr/002-empty-dataframe-guards.md`](spec/adr/002-empty-dataframe-guards.md) | Empty DataFrame guards ADR |
 
 ---
 
@@ -178,7 +179,7 @@ O pipeline valida 6 regras de qualidade documentadas, divididas em **blockers**
 
 ---
 
-## 🚀 Setup & Execução
+## 🚀 Como Reproduzir (Setup & Execução)
 
 ### Pré-requisitos
 
@@ -265,21 +266,41 @@ python main.py --local
 
 ```
 giovanna-rupture-monitor/
-├── main.py                  # Pipeline ETL completo (3 estágios)
-├── requirements.txt         # Dependências (requests + pandas)
-├── .env.example             # Template para variáveis de ambiente
-├── .gitignore               # .venv, .env, __pycache__
+├── main.py                    # Pipeline ETL completo (3 estágios)
+├── requirements.txt           # Dependências (requests + pandas)
+├── .env.example               # Template para variáveis de ambiente
+├── .gitignore                 # .venv, .env, __pycache__
+├── contract.md                # Contrato do projeto (LAOS)
 │
 ├── data/
-│   ├── raw_data.json        # JSON bruto da API (1.000 registros)
-│   ├── rupture_report.csv   # Resumo por região (562 regiões)
-│   └── quality_rules.md     # Regras de qualidade (DQ-01 a DQ-06)
+│   ├── raw_data.json          # JSON bruto da API (1.000 registros)
+│   ├── rupture_report.csv     # Resumo por região (562 regiões)
+│   └── quality_rules.md       # Regras de qualidade (DQ-01 a DQ-06)
 │
-├── decisions/
-│   └── ADR-001-rupture-pipeline.md   # Architecture Decision Record
+├── spec/
+│   ├── constitution.md        # Constituição do projeto (SDD)
+│   ├── todo.md                # Task tracker
+│   ├── adr/
+│   │   ├── README.md          # Índice de ADRs
+│   │   ├── _template.md       # Template para novos ADRs
+│   │   ├── 001-rupture-pipeline.md
+│   │   └── 002-empty-dataframe-guards.md
+│   ├── harness/
+│   │   └── _template.md       # Template de harness de qualidade
+│   └── specs/
+│       └── 000-bootstrap/
+│           └── spec.md        # Spec bootstrap do pipeline
 │
-└── .venv/                   # Ambiente virtual (gitignorado)
+└── .venv/                     # Ambiente virtual (gitignorado)
 ```
+
+## Como reproduzir
+
+1. **Clone** o repositório: `git clone https://github.com/laurentaf/giovanna-rupture-monitor.git`
+2. **Setup** do ambiente virtual e instalação de dependências (veja "Setup & Execução" acima)
+3. **Configure** a chave de API DataMission no `.env`
+4. **Execute**: `python main.py`
+5. **Verifique** os artefatos gerados em `data/raw_data.json` e `data/rupture_report.csv`
 
 ---
 
