@@ -21,8 +21,8 @@ Projeto de portfólio de engenharia de dados.
 - `main.py` — Pipeline ETL com 3 estágios
 - `README.md` — Documentação de portfólio
 - `data/quality_rules.md` — Regras DQ-01 a DQ-06
-- `decisions/ADR-001-rupture-pipeline.md` — Decisão de arquitetura
-- `decisions/ADR-002-empty-dataframe-guards.md` — Guards de DataFrame vazio
+- `spec/adr/001-rupture-pipeline.md` — Decisão de arquitetura
+- `spec/adr/002-empty-dataframe-guards.md` — Guards de DataFrame vazio
 
 ## Repo
 https://github.com/laurentaf/giovanna-rupture-monitor
