@@ -1,4 +1,4 @@
-# Constitution — Monitor de Ruptura Giovanna
+# Constitution — Monitor de Ruptura Lojas Giovanna
 
 **Version:** 1.0 | **Status:** Vigente
 
@@ -11,13 +11,13 @@ Every pipeline follows bronze → silver → gold.
 Every component has pre-condition, post-condition, HARNESS level.
 
 ## Article III — Test-First Imperative
-No code before acceptance criteria and validations defined.
+NO code before acceptance criteria and validations defined.
 
 ## Article IV — Idempotency
 Every job executable N times without different results.
 
 ## Article V — Ubiquitous Language
-Code names reflect GSD vocabulary: ingestao, processamento, relatorio.
+Code names reflect GSD vocabulary.
 
 ## Article VI — No Cross-Layer Reads
 Silver reads from silver. Gold reads from silver.
@@ -30,6 +30,3 @@ Use tools directly. No unnecessary wrappers.
 
 ## Article IX — Integration Before Implementation
 Contracts before code. HARNESS before production.
-
-## Article X — Empty DataFrame Guards
-Every pipeline stage must verify DataFrame emptiness before index access or aggregation. See ADR-002.

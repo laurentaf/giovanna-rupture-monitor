@@ -1,16 +1,17 @@
-# Architecture Decision Records (ADRs)
+# Architecture Decision Records
 
-Índice de decisões arquiteturais do projeto **Monitor de Ruptura — Lojas Giovanna**.
+This directory contains Architecture Decision Records (ADRs) for the
+Monitor de Ruptura Lojas Giovanna project.
 
-| # | Título | Status | Link |
-|---|--------|--------|------|
-| 001 | Pipeline de Monitor de Ruptura em 3 Estágios | Aceito | [001-rupture-pipeline.md](001-rupture-pipeline.md) |
-| 002 | Guards para DataFrame vazio em todas as etapas | Aceito | [002-empty-dataframe-guards.md](002-empty-dataframe-guards.md) |
+## Index
 
----
+| N | Title | Status |
+|---|-------|--------|
+| 001 | Pipeline de Monitor de Ruptura em 3 Estágios | Accepted |
+| 002 | Guards para DataFrame vazio em todas as etapas | Accepted |
 
-## Como criar um novo ADR
+## Conventions
 
-1. Copie `_template.md` para `NNN-titulo-curto.md`.
-2. Preencha Contexto, Decisão, Alternativas e Consequências.
-3. Atualize este README com a nova entrada.
+- ADRs are numbered sequentially: `NNN-title-slug.md`
+- Status: Proposed → Accepted → Deprecated
+- Each ADR documents Context, Decision, Alternatives, Consequences

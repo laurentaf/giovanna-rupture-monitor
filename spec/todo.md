@@ -1,8 +1,8 @@
-# TODO — Monitor de Ruptura Giovanna
+# TODO — Monitor de Ruptura Lojas Giovanna
 
 ---
 
-## Stage 0: SDD Scaffold (Missão 0)
+## Missão 0 — SDD Scaffold (obrigatória)
 
 - [x] spec/constitution.md
 - [x] spec/todo.md
@@ -11,30 +11,56 @@
 - [x] spec/harness/_template.md
 - [x] spec/specs/000-bootstrap/spec.md
 - [x] contract.md
-- [x] ADR-001 movido para spec/adr/001-rupture-pipeline.md
-- [x] ADR-002 movido para spec/adr/002-empty-dataframe-guards.md
+- [x] ADRs movidos de decisions/ para spec/adr/
 
-## Stage 1: Pipeline Core
+---
 
-- [ ] main.py — fetch, process, report
-- [ ] data/raw_data.json — snapshot dos dados da API
-- [ ] data/rupture_report.csv — relatório de ruptura
+## Estágio 1 — Ingestão (fetch_data)
 
-## Stage 2: Quality & Validation
+- [x] Implementar fetch_data() com requests
+- [x] Salvar raw_data.json em disco
+- [x] Guard: API retornar lista vazia
+- [x] Suporte a modo --local
 
-- [ ] data/quality_rules.md — DQ-01 a DQ-06 documentadas
-- [ ] Guards de DataFrame vazio em todas as funções
-- [ ] Testes de unidade (mock da API)
+## Estágio 2 — Processamento (build_demand_forecast + compute_rupture)
 
-## Stage 3: Documentation & Portfolio
+- [x] build_demand_forecast(): derivar regiao, estoque_atual, demanda_prevista
+- [x] compute_rupture(): calcular ruptura por registro
+- [x] Agregar por regiao (mean + max)
+- [x] Guard: DataFrame vazio em cada etapa
+- [x] Guard: demanda_prevista > 0 antes de divisao
 
-- [ ] README.md completo (existe, 10K+ chars)
-- [ ] Snapshot dos dados datado
-- [ ] Review final / delivery sign-off
+## Estágio 3 — Relatório (print_summary + save_report)
+
+- [x] print_summary(): top 3 regioes
+- [x] Guard: summary vazio antes de acessar iloc[0]
+- [x] save_report(): exportar rupture_report.csv
+- [x] Guard: DataFrame vazio antes de salvar
+
+## Qualidade de Dados
+
+- [x] DQ-01: NOT NULL regiao
+- [x] DQ-02: POSITIVE estoque_atual
+- [x] DQ-03: POSITIVE demanda_prevista
+- [x] DQ-04: RANGE ruptura
+- [x] DQ-05: NOT NULL order_id
+- [x] DQ-06: NOT NULL store_location
+
+---
+
+## Phase 10: Remaining
+
+- [ ] GitHub Actions CI/CD
+- [ ] Testes unitarios com pytest
+- [ ] Pre-commit hooks
 
 ---
 
 ## Completed
 
-- [x] Template structure
-- [x] SDD artifacts (Missão 0)
+- [x] Pipeline 3 estagios funcional
+- [x] README com documentacao completa
+- [x] ADR-001: arquitetura do pipeline
+- [x] ADR-002: empty dataframe guards
+- [x] Regras de qualidade documentadas (DQ-01 a DQ-06)
+- [x] Missao 0 — SDD scaffold

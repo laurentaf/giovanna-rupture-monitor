@@ -1,4 +1,4 @@
-# SPEC-000: Bootstrap — Pipeline ETL Monitor de Ruptura
+# SPEC-001: Monitor de Ruptura Pipeline
 
 **Status:** ACEITO
 **Version:** 1.0
@@ -8,30 +8,23 @@
 ---
 
 ## 1. Executive Summary
-Pipeline ETL em 3 estágios que consome dados da API DataMission, calcula
-ruptura de estoque por região e gera relatório analítico. Projeto de
-portfólio de engenharia de dados.
+Pipeline ETL em 3 estágios que consome dados da API DataMission,
+calcula ruptura de estoque por região e gera relatório analítico.
 
 ## 2. User Stories
 ### US-1
-As a data engineer, I need to ingest data from DataMission API because
-the raw data is the foundation for all downstream calculations.
+As a data engineer, I need to ingest order data from the DataMission API
+so that I can compute stock-out metrics per region.
 
 ### US-2
-As a data engineer, I need to compute rupture per region because
-store managers need to know where stock is insufficient.
-
-### US-3
-As a data engineer, I need to generate a CSV report because
-the business team consumes tabular data for decision-making.
+As a supply chain analyst, I need to see the top 3 regions with highest
+rupture so that I can prioritize restocking.
 
 ## 3. Acceptance Criteria
+- [ ] raw_data.json persists API response to disk
+- [ ] rupture_report.csv contains one row per region with mean and max
+- [ ] Empty API response produces friendly message, not IndexError
 - [ ] Pipeline runs end-to-end with `python main.py`
-- [ ] Data ingested: `data/raw_data.json` with ≥ 1.000 records
-- [ ] Rupture computed per region with mean + max aggregation
-- [ ] Report exported: `data/rupture_report.csv`
-- [ ] Empty DataFrame guards prevent IndexError (see ADR-002)
-- [ ] Quality rules documented in `data/quality_rules.md`
 
 ## 4. Sources
 | Table | Schema |
@@ -39,14 +32,10 @@ the business team consumes tabular data for decision-making.
 | DataMission API | order_id, timestamp, customer_id, product_category, price, quantity, store_location |
 
 ## 5. Destination
-### Output artifacts
-| File | Format | Content |
-|------|--------|---------|
-| data/raw_data.json | JSON | Raw API response (1.000 records) |
-| data/rupture_report.csv | CSV | Region-level rupture summary (562 regions) |
+### Artifacts
+- `data/raw_data.json` — raw API dump
+- `data/rupture_report.csv` — aggregated rupture by region
+- `data/quality_rules.md` — DQ rules DQ-01 to DQ-06
 
 ## 6. Refresh Strategy
-Mode: delete-insert (full refresh every run). No incremental mode in MVP.
-
-## 7. Stack
-Python 3.10+, requests 2.31+, pandas 2.0+, DataMission API.
+Mode: delete-insert. Each run overwrites raw_data.json and rupture_report.csv.
