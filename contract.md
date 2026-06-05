@@ -10,6 +10,7 @@ Projeto de portfólio de engenharia de dados.
 - etl
 - data
 - data-quality
+- presentation
 
 ## Capabilities Used
 - **latade** (primary) — SQL, data engineering, data quality
