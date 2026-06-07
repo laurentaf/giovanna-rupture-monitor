@@ -6,13 +6,9 @@ Accepted
 
 ## Contexto
 
-O Data Mission rejeitou a entrega (REJECTED) porque print_summary() assume que
-existe pelo menos uma região e acessa top3.iloc[0] sem verificar se summary
-está vazio. Quando a API não retorna registros (ou o arquivo JSON local está
-vazio), isso gera IndexError e toda a execução trava.
+O pipeline pode receber dados vazios (JSON vazio, arquivo corrompido, ou zero registros após filtro). Sem guards, operações como `.mean()`, `.min()`, `.max()`, `groupby()`, `to_csv()`, e `.iloc[0]` geram `IndexError` ou `ValueError`, travando a execução.
 
-O mesmo risco existe em todas as operações de agregação do pipeline:
-.mean(), .min(), .max(), groupby(), to_csv().
+Isso é particularmente importante no contexto Docker, onde o pipeline roda automaticamente no entrypoint e uma falha não-tratada derruba o container sem mensagem útil.
 
 ## Decisão
 
@@ -20,20 +16,27 @@ Adicionar guards de DataFrame vazio em todas as etapas do pipeline:
 
 | Função | Proteção |
 |--------|----------|
-| fetch_data() | Avisa se API retornar lista vazia |
-| main() | early exit com mensagem clara se raw_data vazio |
-| build_demand_forecast() | Retorna DF vazio com colunas corretas se input vazio |
-| compute_rupture() | Retorna DF vazio com colunas se sem registros válidos |
+| ingest() | Valida colunas obrigatórias; early exit com mensagem se 0 registros |
+| main() | Early exit com mensagem clara se ingest() retornar DF vazio |
+| transform() | Retorna DF vazio com colunas corretas se input vazio; zero-division guard em pct_critico |
 | print_summary() | Mensagem amigável + return cedo se summary vazia |
-| save_report() | Avisa se DataFrame vazio antes de salvar |
+| save_report() | Avisa se DataFrame vazio antes de salvar; escreve CSV com header apenas |
 
 ### Regra geral
 
 Antes de qualquer operação de indexação ou agregação em DataFrame:
-if df.empty: retorna mensagem amigável
+```python
+if df.empty:
+    print("...")
+    return pd.DataFrame(columns=[...])
+```
 
 Antes de acessar índices fixos (iloc[0]):
-if top3.empty: retorna mensagem
+```python
+if top3.empty:
+    print("Nenhum dado para exibir")
+    return
+```
 
 ## Alternativas
 
@@ -41,11 +44,12 @@ if top3.empty: retorna mensagem
 Rejeitado porque mascara erros reais.
 
 ### B) Schema validation library (pandera, great_expectations)
-Rejeitado por adicionar dependência pesada para um pipeline de 2 dependências.
+Rejeitado por adicionar dependência pesada para um pipeline de 1 dependência (pandas).
 
 ## Consequências
 
 + Pipeline nunca trava por IndexError ou ValueError com dados vazios
 + Mensagens de erro claras indicam o problema exato
 + Comportamento consistente em todas as etapas
++ Docker container não derruba silenciosamente — sempre loga o problema
 - Boilerplate adicional em cada função (~10 linhas extras)
