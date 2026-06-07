@@ -29,4 +29,12 @@
 ## Fase 2 — Revisão de entrega
 
 - [x] delivery-reviewer validou contra padroes-entrega.md
-- [ ] Corrigir findings do reviewer (quality_rules.md, .env.example, requirements.txt, ADR index)
+- [x] Corrigir findings do reviewer (quality_rules.md, .env.example, requirements.txt, ADR index)
+
+---
+
+## Fase 3 — Validação final
+
+- [ ] Re-dispatch delivery-reviewer para sign-off final
+- [ ] Resolver findings do reviewer (se houver)
+- [ ] Marcar projeto como delivered
