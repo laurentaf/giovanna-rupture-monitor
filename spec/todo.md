@@ -2,19 +2,31 @@
 
 ---
 
-## Phase 10: Remaining
+## Missão 0 — SDD Scaffold
 
-- [ ] mypy CI integration
-- [ ] Coverage gate enforcement
-- [ ] Pre-commit hooks config
-- [ ] GitHub Actions CI/CD
+- [x] Criar spec/constitution.md (Princípios, Scope, Non-goals)
+- [x] Criar spec/todo.md (este arquivo)
+- [x] Criar spec/adr/_template.md + spec/adr/README.md
+- [x] Criar spec/harness/_template.md
+- [x] Criar spec/specs/000-bootstrap/spec.md
+- [x] Criar contract.md
+- [x] Criar README.md
+- [x] SDD boot-check passou (6ª dimensão)
 
 ---
 
-## Completed
+## Fase 1 — Pipeline + Docker
 
-- [x] Template structure
-- [x] 58 agents
-- [x] 24 KB domains
-- [x] SDD artifacts
-- [x] Design tokens
+- [x] Reescrever main.py para ler ShadowTraffic JSON (colunas: regiao, produto, categoria, estoque_atual, giro_diario, cobertura_dias, irc, risco, critico)
+- [x] Agregação por região com 9 colunas no CSV de saída
+- [x] Empty DataFrame guards em todos os estágios
+- [x] Dockerfile + entrypoint.sh + docker-compose.yml
+- [x] Dashboard HTML (fetch genérico de CSV)
+- [x] Teste Docker end-to-end: `docker run -p 8000:8000 giovanna-rupture` → dashboard funcional
+
+---
+
+## Fase 2 — Revisão de entrega
+
+- [x] delivery-reviewer validou contra padroes-entrega.md
+- [ ] Corrigir findings do reviewer (quality_rules.md, .env.example, requirements.txt, ADR index)
