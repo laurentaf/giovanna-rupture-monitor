@@ -1,4 +1,4 @@
-# ADR-NNN: {Title}
+# ADR Template
 
 ## Status
 Proposed | Accepted | Deprecated

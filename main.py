@@ -2,231 +2,250 @@
 Monitor de Ruptura por Regiao — Lojas Giovanna.
 
 Pipeline ETL em 3 estagios:
-Estagio 1: fetch_data() — consome API da DataMission e salva JSON bruto
-           (ou verifica arquivo local em modo --local)
-Estagio 2: pd.read_json() — le JSON persistido do disco, computa ruptura,
-           resumo por regiao
-Estagio 3: print_summary() — exibe top 3 regioes e exporta CSV final
+  Estagio 1: ingest() — le dados sinteticos do ShadowTraffic (raw_data.json)
+  Estagio 2: transform() — agrega por regiao com metricas de ruptura
+  Estagio 3: report() — exibe resumo e exporta CSV final
 
-Calculo de ruptura:
-ruptura = (demanda_prevista - estoque_atual) / demanda_prevista
-Indica o percentual da demanda que NAO foi atendida pelo estoque.
-Valores positivos = ruptura (estoque insuficiente).
-Valores negativos = excesso de estoque.
+Schema de entrada (ShadowTraffic):
+  regiao, produto, categoria, estoque_atual, giro_diario,
+  cobertura_dias, irc, risco, critico
+
+Schema de saida (rupture_report.csv):
+  regiao, qtd_produtos, estoque_total, giro_medio,
+  cobertura_media_dias, irc_medio, qtd_critico,
+  pct_critico, risco_predominante
 """
 
-import requests
 import pandas as pd
-import json
 import os
 import sys
 import argparse
-import hashlib
 from datetime import datetime
 
 # ─── Configuracoes ──────────────────────────────────────────────────────────
 
-PROJECT_ID = "93fa0f19-ae51-4ed9-986b-47457ac2f26a"
-API_TOKEN = os.environ.get("API_TOKEN")
-
-BASE_URL = "https://api.datamission.com.br/projects"
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+RAW_DATA_FILE = "raw_data.json"
+REPORT_FILE = "rupture_report.csv"
+
+# Colunas esperadas no JSON de entrada (ShadowTraffic schema)
+EXPECTED_COLUMNS = [
+    "regiao", "produto", "categoria", "estoque_atual",
+    "giro_diario", "cobertura_dias", "irc", "risco", "critico",
+]
+
+# Colunas de saida do CSV
+OUTPUT_COLUMNS = [
+    "regiao", "qtd_produtos", "estoque_total", "giro_medio",
+    "cobertura_media_dias", "irc_medio", "qtd_critico",
+    "pct_critico", "risco_predominante",
+]
 
 
 # =============================================================================
-# Estagio 1: Configurar ambiente e obter dados
+# Estagio 1: Ingestao
 # =============================================================================
 
-def fetch_data() -> list[dict]:
+def ingest(json_path: str) -> pd.DataFrame:
     """
-    Consome a API de datasets da DataMission.
+    Le o JSON bruto do ShadowTraffic e retorna um DataFrame.
 
-    Endpoint:
-        GET https://api.datamission.com.br/projects/{project_id}/dataset?format=json&rows=10000
-
-    Cada chamada retorna ate 10.000 registros unicos.
-    Para datasets maiores, execute multiplas vezes e mescle os JSONs.
+    Args:
+        json_path: Caminho absoluto para raw_data.json.
 
     Returns:
-        list[dict]: Lista de registros de pedidos/inventario.
+        DataFrame com as colunas do ShadowTraffic schema.
 
     Raises:
-        requests.exceptions.RequestException: Se a requisicao falhar.
+        SystemExit: Se o arquivo nao existe ou o DataFrame fica vazio.
     """
-    if not API_TOKEN:
-        print("ERRO: Variavel de ambiente API_TOKEN nao definida.")
+    if not os.path.exists(json_path):
+        print(f"[ingest] ERRO: Arquivo nao encontrado: {json_path}")
         sys.exit(1)
 
-    url = f"{BASE_URL}/{PROJECT_ID}/dataset?format=json&rows=10000"
-    headers = {"Authorization": f"Bearer {API_TOKEN}"}
+    print(f"[ingest] Lendo: {json_path}")
+    df = pd.read_json(json_path)
 
-    print(f"[fetch_data] Chamando API: {url}")
-    response = requests.get(url, headers=headers)
-    response.raise_for_status()
+    # --- DataFrame empty guard (P0 padroes-entrega) ---
+    if df.empty:
+        print("[ingest] AVISO: DataFrame vazio apos leitura do JSON.")
+        print("[ingest] Nenhum registro para processar — abortando.")
+        sys.exit(1)
 
-    data = response.json()
-    if not data:
-        print("[fetch_data] AVISO: API retornou lista vazia.")
-    print(f"[fetch_data] {len(data)} registros obtenidos com sucesso.")
-    return data
+    # Valida presenca das colunas esperadas
+    missing = set(EXPECTED_COLUMNS) - set(df.columns)
+    if missing:
+        print(f"[ingest] ERRO: Colunas ausentes no JSON: {sorted(missing)}")
+        print(f"[ingest] Colunas encontradas: {list(df.columns)}")
+        sys.exit(1)
 
-
-def save_raw_json(data: list[dict], filepath: str) -> str:
-    """Persiste dados brutos em JSON no disco."""
-    os.makedirs(os.path.dirname(filepath), exist_ok=True)
-    with open(filepath, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
-    print(f"[save_raw_json] JSON salvo em: {filepath} ({len(data)} registros)")
-    return filepath
+    print(f"[ingest] {len(df)} registros lidos, {df['regiao'].nunique()} regioes.")
+    print(f"[ingest] Colunas validadas: {list(df.columns)}")
+    return df
 
 
 # =============================================================================
-# Estagio 2: Processar dados e calcular ruptura
+# Estagio 2: Transformacao
 # =============================================================================
 
-def build_demand_forecast(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Cria as colunas de estoque_atual e demanda_prevista a partir dos dados
-    de pedidos.
+def _risco_mode(series: pd.Series) -> str:
+    """Retorna a moda (valor mais frequente) de uma Series de risco.
 
-    Como a API retorna dados de pedidos (nao dados de estoque), derivamos:
-      - regiao = store_location (regiao da loja)
-      - estoque_atual = quantity (estoque atual em unidades)
-      - demanda_prevista = estimativa de demanda baseada em uma projecao
-        com variacao deterministica (usando o order_id como seed)
-        para simular um cenario real de previsao vs. estoque
+    Em caso de empate, retorna o primeiro valor por ordem alfabetica
+    para resultado deterministico.
+    """
+    if series.empty:
+        return "N/A"
+    counts = series.value_counts()
+    max_count = counts.max()
+    # Dos empatados, escolhe o primeiro alfabeticamente
+    tied = sorted(counts[counts == max_count].index.tolist())
+    return tied[0]
+
+
+def transform(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Agrega dados por regiao com metricas de ruptura.
 
     Args:
-        df: DataFrame com dados brutos da API.
+        df: DataFrame bruto com schema ShadowTraffic.
 
     Returns:
-        DataFrame com colunas: regiao, estoque_atual, demanda_prevista
+        DataFrame com colunas de saida do rupture_report.csv.
     """
+    # --- DataFrame empty guard (P0 padroes-entrega) ---
     if df.empty:
-        print("[build_demand_forecast] AVISO: DataFrame vazio — pulando transformacao.")
-        return pd.DataFrame(columns=["regiao", "estoque_atual", "demanda_prevista"])
+        print("[transform] AVISO: DataFrame vazio — retornando resultado vazio.")
+        return pd.DataFrame(columns=OUTPUT_COLUMNS)
 
-    # Renomeia store_location para regiao
-    df["regiao"] = df["store_location"]
-
-    # estoque_atual = quantity (cada registro representa a quantidade
-    # do produto disponivel na regiao)
-    df["estoque_atual"] = df["quantity"]
-
-    # demanda_prevista: projecao com base na quantidade + pequeno desvio
-    # deterministico (derivado do order_id) para simular previsao de demanda
-    def _forecast(row):
-        qty = row["quantity"]
-        # Hash SHA256 deterministico do order_id (PYTHONHASHSEED nao afeta)
-        h = hashlib.sha256(str(row["order_id"]).encode()).hexdigest()
-        # Pega os primeiros 8 hex chars como int normalizado entre 0 e 1
-        seed_val = int(h[:8], 16) / 0xFFFFFFFF  # 0.0 a 1.0
-        factor = seed_val * 0.6 - 0.2  # entre -0.2 e +0.4
-        forecast = max(1, round(qty * (1 + factor)))
-        return forecast
-
-    df["demanda_prevista"] = df.apply(_forecast, axis=1)
-
-    print(f"[build_demand_forecast] estoque_atual: min={df['estoque_atual'].min()}, "
-          f"max={df['estoque_atual'].max()}, "
-          f"media={df['estoque_atual'].mean():.1f}")
-    print(f"[build_demand_forecast] demanda_prevista: min={df['demanda_prevista'].min()}, "
-          f"max={df['demanda_prevista'].max()}, "
-          f"media={df['demanda_prevista'].mean():.1f}")
-
-    return df[["regiao", "estoque_atual", "demanda_prevista"]]
-
-
-def compute_rupture(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Calcula a ruptura por registro e depois agrega por regiao.
-
-    Ruptura = (demanda_prevista - estoque_atual) / demanda_prevista
-
-    Agregacao: media (mean) e maximo (max) da ruptura por regiao.
-
-    Args:
-        df: DataFrame com colunas regiao, estoque_atual, demanda_prevista.
-
-    Returns:
-        DataFrame com resumo por regiao: regiao, ruptura_mean, ruptura_max.
-    """
-    if df.empty:
-        print("[compute_rupture] AVISO: DataFrame vazio — retornando resultado vazio.")
-        return pd.DataFrame(columns=["regiao", "ruptura_mean", "ruptura_max"])
-
-    # Calcula ruptura por registro
-    df["ruptura"] = (df["demanda_prevista"] - df["estoque_atual"]) / df["demanda_prevista"]
-
-    # Filtra registros com demanda_valida > 0
-    df_valid = df[df["demanda_prevista"] > 0].copy()
-
-    n_records = len(df_valid)
-    print(f"[compute_rupture] Registros com demanda valida: {n_records}")
-
-    if n_records == 0:
-        print("[compute_rupture] AVISO: Nenhum registro com demanda > 0 — sem dados para agregar.")
-        return pd.DataFrame(columns=["regiao", "ruptura_mean", "ruptura_max"])
-
-    # Agrega por regiao
-    summary = (
-        df_valid.groupby("regiao")["ruptura"]
-        .agg(["mean", "max"])
+    # Marca produtos criticos por regiao: um produto e critico se pelo menos
+    # um de seus registros tem critico=1. Depois conta quantos produtos
+    # criticos existem por regiao (evita inflar o contador quando ha
+    # multiplas linhas por produto).
+    produto_critico = (
+        df.groupby(["regiao", "produto"])["critico"]
+        .max()              # 1 se qualquer linha do produto e critica
         .reset_index()
-        .rename(columns={"mean": "ruptura_mean", "max": "ruptura_max"})
-        .round(4)
+        .groupby("regiao")["critico"]
+        .sum()              # total de produtos criticos na regiao
+        .reset_index()
+        .rename(columns={"critico": "qtd_critico"})
     )
 
-    print(f"[compute_rupture] Regioes unicas: {len(summary)}")
-    return summary
+    aggregated = (
+        df.groupby("regiao")
+        .agg(
+            qtd_produtos=("produto", "nunique"),
+            estoque_total=("estoque_atual", "sum"),
+            giro_medio=("giro_diario", "mean"),
+            cobertura_media_dias=("cobertura_dias", "mean"),
+            irc_medio=("irc", "mean"),
+            risco_predominante=("risco", _risco_mode),
+        )
+        .reset_index()
+    )
+
+    # Merge qtd_critico calculado por produto (nao por linha)
+    aggregated = aggregated.merge(produto_critico, on="regiao", how="left")
+    aggregated["qtd_critico"] = aggregated["qtd_critico"].fillna(0).astype(int)
+
+    # --- Guard: se agregacao produz DataFrame vazio ---
+    if aggregated.empty:
+        print("[transform] AVISO: Agregacao produziu DataFrame vazio.")
+        return pd.DataFrame(columns=OUTPUT_COLUMNS)
+
+    # pct_critico = qtd_critico / qtd_produtos * 100
+    # Guard contra divisao por zero (qtd_produtos nunca deve ser 0,
+    # mas protegemos por robustez)
+    aggregated["pct_critico"] = aggregated.apply(
+        lambda row: round(row["qtd_critico"] / row["qtd_produtos"] * 100, 2)
+        if row["qtd_produtos"] > 0
+        else 0.0,
+        axis=1,
+    )
+
+    # Arredonda metricas continuas para 2 casas decimais
+    aggregated["giro_medio"] = aggregated["giro_medio"].round(2)
+    aggregated["cobertura_media_dias"] = aggregated["cobertura_media_dias"].round(2)
+    aggregated["irc_medio"] = aggregated["irc_medio"].round(4)
+
+    # Garante qtd_critico como inteiro
+    aggregated["qtd_critico"] = aggregated["qtd_critico"].astype(int)
+    aggregated["qtd_produtos"] = aggregated["qtd_produtos"].astype(int)
+    aggregated["estoque_total"] = aggregated["estoque_total"].astype(int)
+
+    # Reordena colunas para o schema de saida
+    result = aggregated[OUTPUT_COLUMNS]
+
+    print(f"[transform] {len(result)} regioes agregadas.")
+    return result
 
 
 # =============================================================================
-# Estagio 3: Gerar relatorios e validacoes
+# Estagio 3: Relatorio
 # =============================================================================
 
 def print_summary(summary: pd.DataFrame) -> None:
     """
-    Exibe as top 3 regioes com maior ruptura media.
+    Exibe resumo das regioes com maior risco critico.
 
     Args:
-        summary: DataFrame com colunas regiao, ruptura_mean, ruptura_max.
+        summary: DataFrame agregado por regiao.
     """
-    print("\n" + "=" * 60)
-    print("  TOP 3 REGIOES COM MAIOR RUPTURA MEDIA")
-    print("=" * 60)
+    print("\n" + "=" * 70)
+    print(" RESUMO DE RUPTURA POR REGIAO — Lojas Giovanna")
+    print("=" * 70)
 
+    # --- DataFrame empty guard ---
     if summary.empty:
-        print("  Nenhuma regiao para exibir — dados ausentes ou vazios.")
-        print("  Verifique se a API retornou registros validos.")
+        print(" Nenhuma regiao para exibir — dados ausentes ou vazios.")
         return
 
-    top3 = summary.sort_values("ruptura_mean", ascending=False).head(3)
+    top_critico = summary.sort_values("pct_critico", ascending=False).head(5)
 
-    for i, (_, row) in enumerate(top3.iterrows(), 1):
-        print(f"  {i}. {row['regiao']}")
-        print(f"     Ruptura media: {row['ruptura_mean']:.2%}")
-        print(f"     Ruptura max:   {row['ruptura_max']:.2%}")
-        print()
+    print(f"\n {'Regiao':<20} {'Produtos':>9} {'Estoque':>9} {'%Critico':>9} {'Risco':>15}")
+    print(" " + "-" * 66)
+    for _, row in top_critico.iterrows():
+        print(f" {row['regiao']:<20} {row['qtd_produtos']:>9} "
+              f"{row['estoque_total']:>9} {row['pct_critico']:>8.1f}% "
+              f"{row['risco_predominante']:>15}")
 
     # Estatisticas gerais
-    mean_val = summary["ruptura_mean"].mean()
-    mean_str = f"{mean_val:.2%}" if not pd.isna(mean_val) else "N/A"
-    print(f"  Total de regioes analisadas: {len(summary)}")
-    print(f"  Media geral de ruptura:     {mean_str}")
+    total_regioes = len(summary)
+    total_produtos = summary["qtd_produtos"].sum()
+    media_critico = summary["pct_critico"].mean()
 
-    # Pior regiao — so acessa se existir
-    if not top3.empty:
-        first = top3.iloc[0]
-        print(f"  Pior regiao:                {first['regiao']} "
-              f"({first['ruptura_mean']:.2%})")
+    print(f"\n Total de regioes analisadas: {total_regioes}")
+    print(f" Total de produtos (distintos agregados): {total_produtos}")
+    print(f" Media geral de % critico: {media_critico:.1f}%")
+
+    # Regiao mais critica
+    if not top_critico.empty:
+        worst = top_critico.iloc[0]
+        print(f" Regiao mais critica: {worst['regiao']} "
+              f"({worst['pct_critico']:.1f}% criticos, "
+              f"risco predominante: {worst['risco_predominante']})")
 
 
 def save_report(summary: pd.DataFrame, filepath: str) -> None:
-    """Salva o resumo de ruptura por regiao em CSV."""
+    """
+    Salva o resumo agregado em CSV.
+
+    Args:
+        summary: DataFrame agregado por regiao.
+        filepath: Caminho do arquivo CSV de saida.
+    """
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
+    # --- DataFrame empty guard ---
     if summary.empty:
         print(f"[save_report] AVISO: DataFrame vazio — salvando CSV com apenas cabecalho.")
+        pd.DataFrame(columns=OUTPUT_COLUMNS).to_csv(
+            filepath, index=False, encoding="utf-8"
+        )
+        print(f"[save_report] Relatorio salvo em: {filepath} (0 regioes, cabecalho apenas)")
+        return
+
     summary.to_csv(filepath, index=False, encoding="utf-8")
     print(f"[save_report] Relatorio salvo em: {filepath} ({len(summary)} regioes)")
 
@@ -238,64 +257,46 @@ def save_report(summary: pd.DataFrame, filepath: str) -> None:
 def main():
     """
     Executa os 3 estagios do pipeline em sequencia:
-      1. Fetch dados da API e salva JSON bruto
-      2. Processa dados, calcula ruptura, gera resumo por regiao
-      3. Exibe top 3 regioes e salva relatorio CSV
+    1. Ingestao — le ShadowTraffic JSON bruto
+    2. Transformacao — agrega por regiao com metricas de ruptura
+    3. Relatorio — exibe resumo e salva CSV
     """
     parser = argparse.ArgumentParser(
         description="Monitor de Ruptura por Regiao — Lojas Giovanna"
     )
     parser.add_argument(
         "--local", "-l", action="store_true",
-        help="Usa dados locais (data/raw_data.json) em vez de chamar a API"
+        help="Usa dados locais (data/raw_data.json) do ShadowTraffic"
     )
     args = parser.parse_args()
 
-    print("=" * 60)
-    print("  Monitor de Ruptura por Regiao — Lojas Giovanna")
-    print("=" * 60)
+    print("=" * 70)
+    print(" Monitor de Ruptura por Regiao — Lojas Giovanna")
+    print("=" * 70)
+    print(f" Modo: {'local' if args.local else 'padrao (local)'}")
+    print(f" Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-    json_path = os.path.join(DATA_DIR, "raw_data.json")
+    json_path = os.path.join(DATA_DIR, RAW_DATA_FILE)
+    report_path = os.path.join(DATA_DIR, REPORT_FILE)
 
     # --- Estagio 1: Ingestao ---
-    print("\n--- Estagio 1: Obter dados ---")
-    if args.local:
-        print("[modo local] Verificando arquivo JSON existente...")
-        if not os.path.exists(json_path):
-            print(f"ERRO: Arquivo {json_path} nao encontrado.")
-            print("Dica: execute primeiro sem --local para baixar da API.")
-            sys.exit(1)
-        print(f"[modo local] Arquivo encontrado: {json_path}")
-    else:
-        print("[modo API] Baixando da API DataMission...")
-        raw_data = fetch_data()
-        save_raw_json(raw_data, json_path)
+    print("\n--- Estagio 1: Ingestao de dados ---")
+    df = ingest(json_path)
 
-    if not os.path.exists(json_path):
-        print("\n[ERRO] JSON persistido nao encontrado em disco. Verifique a ingestao.")
-        sys.exit(1)
+    # --- Estagio 2: Transformacao ---
+    print("\n--- Estagio 2: Transformacao e agregacao ---")
+    summary = transform(df)
 
-    # --- Estagio 2: Processamento ---
-    print("\n--- Estagio 2: Processar dados e calcular ruptura ---")
-    print(f"[Estagio 2] Lendo JSON persistido com pd.read_json: {json_path}")
-    df = pd.read_json(json_path, dtype={"order_id": str, "customer_id": str})
-    if df.empty:
-        print("[Estagio 2] AVISO: DataFrame vazio apos pd.read_json — nenhum registro para processar.")
-        print("\n[ERRO] Nenhum registro encontrado no JSON persistido.")
-        sys.exit(1)
-    df_filtered = build_demand_forecast(df)
-    summary = compute_rupture(df_filtered)
-
-    # --- Estagio 3: Relatorios ---
-    print("\n--- Estagio 3: Relatorios e validacoes ---")
+    # --- Estagio 3: Relatorio ---
+    print("\n--- Estagio 3: Relatorio e exportacao ---")
     print_summary(summary)
-    report_path = os.path.join(DATA_DIR, "rupture_report.csv")
     save_report(summary, report_path)
 
     print("\n[OK] Pipeline completo (3 estagios)!")
-    print(f" Modo: {'local' if args.local else 'API'}")
     print(f" JSON bruto: {json_path} ({len(df)} registros lidos)")
-    print(f" Relatorio: {report_path} ({len(summary)} regioes)")
+    print(f" Relatorio:  {report_path} ({len(summary)} regioes)")
+    if not summary.empty:
+        print(f" Colunas CSV: {list(summary.columns)}")
 
 
 if __name__ == "__main__":

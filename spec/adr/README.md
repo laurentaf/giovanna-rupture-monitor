@@ -1,17 +1,9 @@
-# Architecture Decision Records
+# ADR Index
 
-This directory contains Architecture Decision Records (ADRs) for the
-Monitor de Ruptura Lojas Giovanna project.
+Architecture Decision Records for this project.
 
-## Index
+| Number | Title | Status | Date |
+|--------|-------|--------|------|
+| (vazio) | — | — | — |
 
-| N | Title | Status |
-|---|-------|--------|
-| 001 | Pipeline de Monitor de Ruptura em 3 Estágios | Accepted |
-| 002 | Guards para DataFrame vazio em todas as etapas | Accepted |
-
-## Conventions
-
-- ADRs are numbered sequentially: `NNN-title-slug.md`
-- Status: Proposed → Accepted → Deprecated
-- Each ADR documents Context, Decision, Alternatives, Consequences
+> **Nota:** Este índice começa vazio. ADRs reais (numerados a partir de `001-*.md`) são adicionados após o primeiro estágio decisório (data‑model, design, ou build). Antes disso, apenas `_template.md` e este `README.md` existem no diretório.

@@ -1,32 +1,29 @@
-# Constitution — Monitor de Ruptura Lojas Giovanna
+# Constitution – Project Skeleton
 
-**Version:** 1.0 | **Status:** Vigente
+This file defines the mandatory SDD scaffold for the project. All sections are required by the Missão 0.
 
----
+## Article I – Project Purpose
+Define the business problem and success criteria.
 
-## Article I — Medallion as Structural Invariant
-Every pipeline follows bronze → silver → gold.
+## Article II – Architecture Overview
+High‑level diagram of data sources, processing layers and dashboard.
 
-## Article II — Mandatory Testability
-Every component has pre-condition, post-condition, HARNESS level.
+## Article III – Governance
+Roles, review process and delivery checklist.
 
-## Article III — Test-First Imperative
-NO code before acceptance criteria and validations defined.
+## Scope
 
-## Article IV — Idempotency
-Every job executable N times without different results.
+- Monitoramento de ruptura de estoque por região nas lojas Giovanna.
+- Pipeline ETL: ingestão de dados ShadowTraffic → transformação (cálculo IRC v2) → relatório CSV agregado por região.
+- Dashboard HTML servido via Docker container, consumindo o CSV gerado.
+- Dados determinísticos e reprodutíveis (sem dependência de API externa em modo `--local`).
 
-## Article V — Ubiquitous Language
-Code names reflect GSD vocabulary.
+## Non-goals
 
-## Article VI — No Cross-Layer Reads
-Silver reads from silver. Gold reads from silver.
+- Previsão de demanda ou reposição automática (somente diagnóstico de ruptura atual).
+- Integração com ERP ou sistemas de gestão da Giovanna (escopo futuro, não neste ciclo).
+- Dashboard real-time ou streaming (o pipeline é batch, rodado sob demanda).
+- Análise por loja individual (granularidade é por região).
 
-## Article VII — Simplicity
-Max 3 medallion layers. No speculative features.
-
-## Article VIII — Anti-Abstraction
-Use tools directly. No unnecessary wrappers.
-
-## Article IX — Integration Before Implementation
-Contracts before code. HARNESS before production.
+## Article IV – Risks & Mitigations
+List of known risks and mitigation strategies.

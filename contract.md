@@ -1,28 +1,23 @@
-# Contract — Monitor de Ruptura por Região Lojas Giovanna
+# Contract – Giovanna Rupture Monitor
+
+Este documento formaliza o escopo, necessidades, entregáveis e capacidades utilizadas pelo projeto **Giovanna Ruptura Monitor**.
 
 ## Brief
-Pipeline ETL em 3 estágios que consome dados da API DataMission
-(datamission.com.br/projects/93fa0f19-ae51-4ed9-986b-47457ac2f26a),
-calcula ruptura de estoque por região e gera relatório analítico.
-Projeto de portfólio de engenharia de dados.
+Monitorar a ruptura de estoque por região nas lojas Giovanna, calculando a métrica de ruptura (demanda prevista – estoque atual) / demanda prevista.
 
 ## Needs
-- etl
 - data
-- data-quality
-
-## Capabilities Used
-- **latade** (primary) — SQL, data engineering, data quality
-- **ladesign** (optional) — presentation
+- dashboard
+- presentation
 
 ## Deliverables
-- `data/raw_data.json` — Dados brutos da API
-- `data/rupture_report.csv` — Relatório de ruptura por região
-- `main.py` — Pipeline ETL com 3 estágios
-- `README.md` — Documentação de portfólio
-- `data/quality_rules.md` — Regras DQ-01 a DQ-06
-- `spec/adr/001-rupture-pipeline.md` — Decisão de arquitetura
-- `spec/adr/002-empty-dataframe-guards.md` — Guards de DataFrame vazio
+- `dashboard.html`
+- `data/rupture_report.csv`
+- `data/raw_data.json`
+
+## Capabilities Used
+- **ladesign** (dashboard visual)
+- **latade** (pipeline ETL e cálculo de ruptura)
 
 ## Repo
 https://github.com/laurentaf/giovanna-rupture-monitor

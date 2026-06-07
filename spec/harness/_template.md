@@ -1,10 +1,10 @@
-# HARNESS-001: Rupture Pipeline
+# HARNESS-NNN: {Name}
 
 ## Status
 RASCUNHO
 
 ## Objective
-Prove pipeline produces correct rupture numbers.
+Prove pipeline produces correct numbers.
 
 ## Levels
 | Level | Metric | Tolerance | Frequency |

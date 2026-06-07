@@ -1,0 +1,9 @@
+# Giovanna Rupture Monitor — Docker Compose
+# Usage: docker compose up
+
+services:
+  monitor:
+    build: .
+    ports:
+      - "8000:8000"
+    container_name: giovanna-rupture-monitor

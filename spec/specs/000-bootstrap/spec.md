@@ -1,4 +1,4 @@
-# SPEC-001: Monitor de Ruptura Pipeline
+# SPEC-001: Bootstrap — Giovanna Rupture Monitor
 
 **Status:** ACEITO
 **Version:** 1.0
@@ -7,35 +7,51 @@
 
 ---
 
+## Contexto
+
+Pipeline ETL para monitoramento de ruptura de estoque nas lojas Giovanna. Migração de DataMission API para ShadowTraffic (dados sintéticos determinísticos). Dashboard HTML consome CSV agregado por região com métricas IRC v2.
+
 ## 1. Executive Summary
-Pipeline ETL em 3 estágios que consome dados da API DataMission,
-calcula ruptura de estoque por região e gera relatório analítico.
+
+Scaffold inicial do projeto: pipeline `main.py` com modo `--local`, dados sintéticos em `data/raw_data.json`, e dashboard HTML servido via Docker.
 
 ## 2. User Stories
-### US-1
-As a data engineer, I need to ingest order data from the DataMission API
-so that I can compute stock-out metrics per region.
 
-### US-2
-As a supply chain analyst, I need to see the top 3 regions with highest
-rupture so that I can prioritize restocking.
+### US-1
+As a data engineer, I need to run the pipeline with local synthetic data so I can develop without API access.
 
 ## 3. Acceptance Criteria
-- [ ] raw_data.json persists API response to disk
-- [ ] rupture_report.csv contains one row per region with mean and max
-- [ ] Empty API response produces friendly message, not IndexError
-- [ ] Pipeline runs end-to-end with `python main.py`
+- [x] Data ingested from local JSON
+- [x] Schema validated (ShadowTraffic columns)
+- [x] CSV output matches dashboard expectations
 
 ## 4. Sources
+
 | Table | Schema |
 |-------|--------|
-| DataMission API | order_id, timestamp, customer_id, product_category, price, quantity, store_location |
+| raw_data.json | regiao, produto, categoria, estoque_atual, giro_diario, cobertura_dias, irc, risco, critico |
 
 ## 5. Destination
-### Artifacts
-- `data/raw_data.json` — raw API dump
-- `data/rupture_report.csv` — aggregated rupture by region
-- `data/quality_rules.md` — DQ rules DQ-01 to DQ-06
+
+### DDL
+```sql
+-- rupture_report.csv columns:
+-- regiao, qtd_produtos, estoque_total, giro_medio, cobertura_media_dias,
+-- irc_medio, qtd_critico, pct_critico, risco_predominante
+```
 
 ## 6. Refresh Strategy
-Mode: delete-insert. Each run overwrites raw_data.json and rupture_report.csv.
+
+Mode: full-replace (deterministic regeneration)
+
+## Decisão
+
+Adotar ShadowTraffic como fonte de dados sintéticos em vez da DataMission API. Motivo: eliminar dependência de API externa, garantir reprodutibilidade determinística e permitir execução offline (`--local`). O formato JSON com colunas ShadowTraffic (regiao, produto, categoria, estoque_atual, giro_diario, cobertura_dias, irc, risco, critico) foi mantido para compatibilidade com o dashboard existente. Docker como formato de entrega único para eliminar problemas de ambiente.
+
+## Critérios
+
+- Pipeline executa end-to-end com `python main.py --local` sem erros.
+- CSV de saída (`rupture_report.csv`) contém colunas esperadas pelo dashboard: regiao, qtd_produtos, estoque_total, giro_medio, cobertura_media_dias, irc_medio, qtd_critico, pct_critico, risco_predominante.
+- Dashboard HTML renderiza corretamente os dados do CSV.
+- `docker build && docker run` produz dashboard funcional acessível em `http://localhost:8000/dashboard.html`.
+- Dados são determinísticos: execução repetida com mesmo `raw_data.json` produz mesmo resultado.
